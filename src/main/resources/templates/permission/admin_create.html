@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<th:block th:replace="~{includes/admin/head}" />
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <th:block th:replace="~{includes/admin/sidebar}" />
+    <script>
+        $(".nav_permission_a").removeClass("collapsed");
+        $(".nav_permission_div").addClass("show");
+    </script>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <th:block th:replace="~{includes/admin/topbar}" />
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">권한 생성</h1>
+                <p class="mb-4">신규 생성 입니다.</p>
+
+                <div class="mb-4">
+                    <div class="form-group row">
+
+                        <label class="col-sm-2 col-form-label">*제목</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="input_param input_required form-control mb-2" id="create_permission_title" name="title" placeholder="내용을 입력해주세요!" />
+                        </div>
+                        <label class="col-sm-6"></label>
+
+                        <label class="col-sm-2 col-form-label">내용</label>
+                        <div class="col-sm-10">
+                            <textarea class="input_param form-control mb-2" id="create_permission_content" name="content" placeholder="내용을 입력해주세요!" ></textarea>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="create_permission(); return false;">생성하기</button>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <th:block th:replace="~{includes/admin/footer}" />
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<th:block th:replace="~{includes/admin/bottom}" />
+
+<script>
+    $( document ).ready(function() {
+        console.log( "ready!" );
+    });
+    function create_permission(){
+        let _param = listenerCreateParam();
+        let _data = {};
+        _data.url = "/api/permission";
+        _data.type = "POST";
+        _data.param = _param;
+        _data.success = function(obj_data, obj_status, obj_xhr){
+            alert("등록 성공");
+            location.reload();
+        }
+        _data.error = function(obj_data, obj_status, obj_xhr){
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+</script>
+
+
+</body>
+
+</html>

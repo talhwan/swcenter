@@ -1,0 +1,167 @@
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">HGU ADMIN <sup>!</sup></div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="/admin">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        기본 기능
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item nav_div_permission nav_div_user" style="display: none">
+        <a class="nav-link collapsed nav_permission_a" href="#" data-toggle="collapse" data-target="#nav_permission_div" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>권한관리</span>
+        </a>
+        <div id="nav_permission_div" class="collapse" aria-labelledby="headingPermission" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item nav_div_permission" href="/permission/admin_list" style="display: none">권한</a>
+                <a class="collapse-item nav_div_user" href="/user/admin_list" style="display: none">사용자</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item nav_div_notice nav_div_faq" style="display: none">
+        <a class="nav-link collapsed nav_notice_a nav_faq_a" href="#" data-toggle="collapse" data-target="#nav_notice_div" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>게시글</span>
+        </a>
+        <div id="nav_notice_div" class="collapse nav_notice_div nav_faq_div nav_popup_div" aria-labelledby="headingNotice" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item nav_div_notice" href="/notice/admin_list" style="display: none">공지사항</a>
+                <a class="collapse-item nav_div_faq" href="/faq/admin_list" style="display: none">FAQ</a>
+                <a class="collapse-item nav_div_popup" href="/popup/admin_list" style="display: none">팝업</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item nav_div_quiz nav_div_quizuser" style="display: none">
+        <a class="nav-link collapsed nav_quiz_a nav_quizuser_a" href="#" data-toggle="collapse" data-target="#nav_quiz_div" aria-expanded="true" aria-controls="collapseQuiz">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>퀴즈 관련</span>
+        </a>
+        <div id="nav_quiz_div" class="collapse nav_quiz_div nav_quizuser_div" aria-labelledby="headingQuiz" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item nav_div_quiz" href="/quiz/admin_list" style="display: none">퀴즈</a>
+                <a class="collapse-item nav_div_quizuser" href="/quizuser/admin_list" style="display: none">퀴즈응시</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item nav_div_toon nav_div_qtoon nav_div_qtoonuser" style="display: none">
+        <a class="nav-link collapsed nav_toon_a nav_qtoon_a nav_qtoonuser_a" href="#" data-toggle="collapse" data-target="#nav_toon_div" aria-expanded="true" aria-controls="collapseQuiz">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>콘텐츠 관련</span>
+        </a>
+        <div id="nav_toon_div" class="collapse nav_toon_div nav_qtoon_div nav_qtoonuser_div" aria-labelledby="headingQuiz" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item nav_div_toon" href="/toon/admin_list" style="display: none">콘텐츠</a>
+                <a class="collapse-item nav_div_qtoon" href="/qtoon/admin_list" style="display: none">콘텐츠퀴즈목록</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item nav_div_qstock nav_div_qstockuser" style="display: none">
+        <a class="nav-link collapsed nav_qstock_a nav_qstockuser_a" href="#" data-toggle="collapse" data-target="#nav_qstock_div" aria-expanded="true" aria-controls="collapseQstock">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>주식예측 관련</span>
+        </a>
+        <div id="nav_qstock_div" class="collapse nav_qstock_div nav_qstockuser_div" aria-labelledby="headingQstock" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item nav_div_qstock" href="/qstock/admin_list" style="display: none">주식예측</a>
+                <a class="collapse-item nav_div_qstockuser" href="/qstockuser/admin_list" style="display: none">주식예측응시</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item nav_div_dailydev nav_div_dailyattend" style="display: none">
+        <a class="nav-link collapsed nav_dailydev_a nav_dailyattend_a" href="#" data-toggle="collapse" data-target="#nav_dailydev_div" aria-expanded="true" aria-controls="collapseQuiz">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>매일참여 관련</span>
+        </a>
+        <div id="nav_dailydev_div" class="collapse nav_dailydev_div nav_dailyattend_div" aria-labelledby="headingQuiz" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item nav_div_dailydev" href="/dailydev/admin_list" style="display: none">개발참여</a>
+                <a class="collapse-item nav_div_dailyattend" href="/dailyattend/admin_list" style="display: none">출석체크</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item nav_div_gift nav_div_giftuser" style="display: none">
+        <a class="nav-link collapsed nav_gift_a nav_giftuser_a" href="#" data-toggle="collapse" data-target="#nav_gift_div" aria-expanded="true" aria-controls="collapseQuiz">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>상품 관련</span>
+        </a>
+        <div id="nav_gift_div" class="collapse nav_gift_div nav_giftuser_div nav_gbrand_div" aria-labelledby="headingQuiz" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item nav_div_gbrand" href="/gbrand/admin_list" style="display: none">브랜드</a>
+                <a class="collapse-item nav_div_gift" href="/gift/admin_list" style="display: none">상품</a>
+                <a class="collapse-item nav_div_giftuser" href="/giftuser/admin_list" style="display: none">상품구입</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item nav_div_cpoint nav_div_cticket nav_div_quest" style="display: none">
+        <a class="nav-link collapsed nav_cpoint_a nav_cticket_a nav_quest_a" href="#" data-toggle="collapse" data-target="#nav_cpoint_div" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>포인트 관련</span>
+        </a>
+        <div id="nav_cpoint_div" class="collapse nav_cpoint_div nav_cticket_div nav_quest_div" aria-labelledby="headingCpoint" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item nav_div_cpoint" href="/cpoint/admin_list" style="display: none">포인트</a>
+                <a class="collapse-item nav_div_cticket" href="/cticket/admin_list" style="display: none">티켓</a>
+                <a class="collapse-item nav_div_quest" href="/quest/admin_list" style="display: none">퀘스트</a>
+            </div>
+        </div>
+    </li>
+</ul>
+<!-- End of Sidebar -->
+
+<script>
+    $( document ).ready(function() {
+        search_permissiondetail();
+    });
+    function search_permissiondetail() {
+        let _data = new Map();
+        _data.url = "/api/permissiondetail/access";
+        _data.type = "GET";
+        _data.param = {};
+        _data.success = function(obj_data, obj_status, obj_xhr){
+            /*
+            alert(JSON.stringify(obj_data));
+            */
+            let tempList = obj_data;
+            for(let each of tempList){
+                let tempTarget = each["target"];
+                $(".nav_div_" + tempTarget).css("display", "");
+            }
+            if(tempList == null || tempList.length === 0){
+                /**/
+                //alert("관리자가 아닌 경우 접속이 불가합니다.");
+                //location.replace("/index");
+            }
+        }
+        _data.error = function(obj_data, obj_status, obj_xhr){
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+</script>
+

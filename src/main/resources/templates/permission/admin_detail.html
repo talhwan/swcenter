@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<th:block th:replace="~{includes/admin/head}" />
+
+<body id="page-top">
+
+<script id="list_info_permissiondetail" type="text/x-handlebars-template">
+    {{#resultData_permissiondetail}}
+    <tr class="gradeA">
+        <td>
+            {{title}}
+        </td>
+        <td>
+            <input class="input_chk_all input_chk_all_{{target}}" type="checkbox" name="0" id="input_chk_each_{{target}}_0" onchange="listener_chk_permission('{{target}}','0')" />
+        </td>
+        <td>
+            <input class="input_chk_each input_chk_each_{{target}}" type="checkbox" name="110" id="input_chk_each_{{target}}_110" onchange="listener_chk_permission('{{target}}','110')" />
+        </td>
+        <td>
+            <input class="input_chk_each input_chk_each_{{target}}" type="checkbox" name="120" id="input_chk_each_{{target}}_120" onchange="listener_chk_permission('{{target}}','120')" />
+        </td>
+        <td>
+            <input class="input_chk_each input_chk_each_{{target}}" type="checkbox" name="200" id="input_chk_each_{{target}}_200" onchange="listener_chk_permission('{{target}}','200')" />
+        </td>
+    </tr>
+    {{/resultData_permissiondetail}}
+</script>
+<script type="text/javascript">
+    var list_info_permissiondetail = $("#list_info_permissiondetail").html();
+    var list_info_permissiondetail_template = Handlebars.compile(list_info_permissiondetail);
+</script>
+
+<script id="list_info_permissionuser" type="text/x-handlebars-template">
+    {{#resultData_permissionuser}}
+    <tr class="gradeA" id="tr_permissionuser_{{id}}">
+        <td><font class="font_permissionuser_order">-</font></td>
+        <td>{{userUsername}}</td>
+        <td><button class="btn btn-danger btn-sm" onclick="delete_permissionuser('{{id}}')">삭제</button></td>
+    </tr>
+    {{/resultData_permissionuser}}
+</script>
+<script type="text/javascript">
+    var list_info_permissionuser = $("#list_info_permissionuser").html();
+    var list_info_permissionuser_template = Handlebars.compile(list_info_permissionuser);
+</script>
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <th:block th:replace="~{includes/admin/sidebar}" />
+    <script>
+        $(".nav_permission_a").removeClass("collapsed");
+        $(".nav_permission_div").addClass("show");
+    </script>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <th:block th:replace="~{includes/admin/topbar}" />
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">권한 : <span class="font_permission_title">-</span> </h1>
+                <p class="mb-4">권한 상세 입니다.</p>
+
+                <div class="mb-4">
+                    <div class="form-group row">
+                        <input type="hidden" id="detail_permission_id" />
+
+                        <label class="col-sm-2 col-form-label">*삭제여부</label>
+                        <div class="col-sm-4">
+                            <select class="input_param input_required form-control mb-2" id="detail_permission_deleted" name="deleted" onchange="update_permission(this)">
+                                <option value="" selected="selected">전체</option>
+                                <option value="false">일반</option>
+                                <option value="true">삭제</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-6"></label>
+
+                        <label class="col-sm-2 col-form-label">*제목</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="input_param input_required form-control mb-2" id="detail_permission_title" name="title" placeholder="제목을 입력해주세요!" onchange="update_permission(this)" />
+                        </div>
+                        <label class="col-sm-6"></label>
+
+                        <label class="col-sm-2 col-form-label">내용</label>
+                        <div class="col-sm-10">
+                            <textarea class="input_param form-control mb-2" id="detail_permission_content" name="content" placeholder="내용을 입력해주세요!" onchange="update_permission(this)" ></textarea>
+                        </div>
+                    </div>
+
+                    <ul class="nav nav-tabs">
+                        <li><a class="nav-link active" data-toggle="tab" href="#tab-part"><i class="fa fa-briefcase"></i> 권한 상세</a></li>
+                        <li><a class="nav-link" data-toggle="tab" href="#tab-user" onclick="search_permissionuser();"><i class="fa fa-user"></i> 권한 사용자</a></li>
+                    </ul>
+                    <div class="tab-content bg-white">
+                        <div id="tab-part" class="tab-pane active">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>권한상세</th>
+                                    <th>전체</th>
+                                    <th>입력</th>
+                                    <th>수정</th>
+                                    <th>조회</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tbody_permissiondetail_list">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="tab-user" class="tab-pane">
+                            <div class="text-right">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary btn-sm m-2" data-toggle="modal" data-target="#createPermissionuser">
+                                    추가하기
+                                </button>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>사용자ID</th>
+                                    <th>/</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tbody_permissionuser_list">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--<button class="btn btn-primary" onclick="create_permission(); return false;">생성하기</button>-->
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <th:block th:replace="~{includes/admin/footer}" />
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Modal -->
+<div class="modal fade" id="createPermissionuser" tabindex="-1" role="dialog" aria-labelledby="createPermissionuser" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">신규 추가하기</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label class="col-form-label">*사용자id</label>
+                <div>
+                    <input type="text" class="form-control m-b input_required" id="create_permissionuser_username" keyword="username" placeholder="내용을 입력하세요" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-primary" onclick="create_permissionuser();">등록</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{includes/admin/bottom}" />
+
+<script>
+    $(document).ready(function () {
+        console.log("ready!");
+        detail_permission();
+    });
+
+    function create_permissionuser() {
+        let _param = {
+            'permissionId': getIdFromUrl(null)
+            , 'username': $("#create_permissionuser_username").val()
+        };
+        let _data = {};
+        _data.url = "/api/permissionuser";
+        _data.type = "POST";
+        _data.param = _param;
+        _data.success = function (obj_data, obj_status, obj_xhr) {
+            search_permissionuser();
+        }
+        _data.error = function (obj_data, obj_status, obj_xhr) {
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+    function delete_permissionuser(obj_id) {
+        let _param = {
+            'id': obj_id
+        };
+        let _data = {};
+        _data.url = "/api/permissionuser";
+        _data.type = "DELETE";
+        _data.param = _param;
+        _data.success = function (obj_data, obj_status, obj_xhr) {
+            search_permissionuser();
+        }
+        _data.error = function (obj_data, obj_status, obj_xhr) {
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+    function search_permissionuser() {
+        let permissionId = getIdFromUrl(null);
+        let _data = new Map();
+        _data.url = "/api/permissionuser/list";
+        _data.type = "GET";
+        _data.param = {
+            deleted : false
+            , permissionId : permissionId
+        };
+        _data.success = function(obj_data, obj_status, obj_xhr){
+            $("#tbody_permissionuser_list").html("");
+            let tempList = obj_data;
+            for(let each of tempList){
+                let tList = [];
+                tList.push(each);
+                $("#tbody_permissionuser_list").append(list_info_permissionuser_template({"resultData_permissionuser":tList}));
+            }
+            listenerFontOrder("permissionuser")
+        }
+        _data.error = function(obj_data, obj_status, obj_xhr){
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+    function toggle_permissiondetail(obj_alive, obj_target, obj_func) {
+        let _param = {
+            'permissionId': getIdFromUrl(null)
+            , 'alive': obj_alive
+            , 'target': obj_target
+            , 'func': obj_func
+        };
+        let _data = {};
+        _data.url = "/api/permissiondetail/toggle";
+        _data.type = "POST";
+        _data.param = _param;
+        _data.success = function (obj_data, obj_status, obj_xhr) {
+            //alert("등록 성공");
+            listener_chk_permission_all(obj_target);
+        }
+        _data.error = function (obj_data, obj_status, obj_xhr) {
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+
+    function listener_chk_permission(obj_target, obj_func) {
+        let checked = $("#input_chk_each_" + obj_target + "_" + obj_func).prop("checked");
+        if (obj_func === '0') {
+            //전체 제어
+            let tempArray = [110, 120, 200];
+            for(let each of tempArray){
+                $("#input_chk_each_" + obj_target + "_" + each).prop("checked", checked);
+                toggle_permissiondetail(checked, obj_target, each);
+            }
+        } else {
+            //개별 제어
+            toggle_permissiondetail(checked, obj_target, obj_func);
+        }
+    }
+
+    function listener_chk_permission_all(obj_target) {
+        let isOn = true;
+        let input_chk_each = $(".input_chk_each_" + obj_target);
+        for (let each of input_chk_each) {
+            let each_checked = $(each).prop("checked");
+            if (!each_checked) {
+                isOn = false;
+            }
+        }
+        $("#input_chk_each_" + obj_target + "_0").prop("checked", isOn);
+    }
+
+    function update_permission(obj_this){
+        let _param = {
+            id : getIdFromUrl(null)
+        };
+        _param[$(obj_this).attr("name")] = $(obj_this).val();
+        let _data = {};
+        _data.url = "/api/permission";
+        _data.type = "PUT";
+        _data.param = _param;
+        _data.success = function(obj_data, obj_status, obj_xhr){
+        }
+        _data.error = function(obj_data, obj_status, obj_xhr){
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+    function detail_permission() {
+        let permissionId = getIdFromUrl(null);
+        let _data = new Map();
+        _data.url = "/api/permission";
+        _data.type = "GET";
+        _data.param = {'id': permissionId};
+        _data.success = function (obj_data, obj_status, obj_xhr) {
+            //alert(JSON.stringify(obj_data));
+            listenerAfterDetail(obj_data, "permission");
+
+            let targets = obj_data["targets"];
+            for (let each of targets) {
+                let tList = [];
+                let eachData = {};
+                eachData["target"] = each[0];
+                eachData["title"] = each[1];
+                tList.push(eachData);
+                $("#tbody_permissiondetail_list").append(list_info_permissiondetail_template({"resultData_permissiondetail": tList}));
+            }
+
+            let details = obj_data["details"];
+            for (let each of details) {
+                $("#input_chk_each_" + each["target"] + "_" + each["func"]).prop("checked", true);
+                listener_chk_permission_all(each["target"]);
+            }
+        }
+        _data.error = function (obj_data, obj_status, obj_xhr) {
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<th:block th:replace="~{includes/user/head}" />
+<style>
+    .claria-logo {
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+    }
+    .font-logo {
+        font-size: 28px;
+        font-weight: 900;
+    }
+
+
+    .btn_nlogin {
+        background-color: #2B2D30;
+    }
+    .btn_nlogin:disabled {
+        background-color: #2F4D6F; /*  */
+        cursor: not-allowed;       /* 금지 커서 */
+        color: white;              /* 글자색 */
+    }
+    .btn_nlogin:hover {
+        opacity : 0.75;
+    }
+    .btn_login {
+        background-color: #2D35F8;
+    }
+    .btn_login:disabled {
+        background-color: #9ca3af; /* 회색 */
+        cursor: not-allowed;       /* 금지 커서 */
+        color: white;              /* 글자색 */
+    }
+    .btn_login:hover {
+        opacity : 0.75;
+    }
+</style>
+<body class="flex items-center min-h-screen">
+<div class="shadow-2xl items-center w-full max-w-md min-h-screen mx-auto">
+    <!-- Logo Section -->
+    <div class="text-center" style="padding-top: calc(50vh - 284px);">
+        <div class="claria-logo">
+            <img src="https://staticfile-three.vercel.app/frontrewardquiz/img/logo.png"/>
+        </div>
+        <div class="font-logo text-gray-900 tracking-wide">CLAIRA</div>
+    </div>
+
+    <div class="space-y-6 mx-4">
+        <!-- 이메일 -->
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">전화번호</label>
+            <input type="text" id="create_user_phone" placeholder="전화번호 입력 (ex. 010-0000-0000)" class="w-full px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </div>
+        <div class="div_after_ncode hidden">
+            <label class="block text-sm font-medium text-gray-700 mb-1">비밀번호</label>
+            <input type="password" id="create_user_password" placeholder="비밀번호 입력" class="w-full px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </div>
+        <div class="div_after_ncode hidden">
+            <label class="block text-sm font-medium text-gray-700 mb-1">비밀번호 확인</label>
+            <input type="password" id="create_user_repassword" placeholder="비밀번호 입력" class="w-full px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </div>
+        <!--<div class="flex justify-end" style="margin: 0;">
+            <a class="text-xs text-blue-400 mt-1" href="javascript:ncode_user()">인증문자 확인</a>
+        </div>-->
+    </div>
+    <!-- Bottom Navigation -->
+    <div class="max-w-md mx-auto absolute bottom-0 left-0 right-0 px-4 pb-8">
+        <button id="btn_sendcode" class="w-full py-4 text-white btn_nlogin font-semibold rounded-lg
+        disabled:cursor-not-allowed
+        hover:bg-blue-700 transition-all duration-300" onclick="ncode_user()">
+            인증문자 요청
+        </button>
+        <button id="btn_confirm" class="w-full py-4 text-white btn_login font-semibold rounded-lg
+        disabled:cursor-not-allowed
+        hover:bg-blue-700 transition-all duration-300" style="display: none;" onclick="nlogin_user()">
+            회원 가입
+        </button>
+    </div>
+</div>
+<th:block th:replace="~{includes/user/bottom}" />
+<script>
+    let isNotBlank = str => str?.trim().length > 0;
+
+    let tempCode = "";
+    function nlogin_user(){
+        let phone = $("#create_user_phone").val();
+        let regex = /^01[0-9]-?\d{3,4}-?\d{4}$/;
+        if(!regex.test(phone)){
+            alert("정상적인 전화번호가 아닙니다. 다시 입력해주세요.");
+            return false;
+        }
+
+        let password = $("#create_user_password").val();
+        let repassword = $("#create_user_repassword").val();
+        if (!isNotBlank(password)) {
+            alert("비밀번호를 입력하세요.");
+            return false;
+        }
+        if(password !== repassword){
+            alert("비밀번호가 일치하지 않습니다.");
+            return false;
+        }
+
+        let _data = {};
+        _data["phone"] = phone;
+        _data["code"] = tempCode;
+        _data["password"] = password;
+        $.ajax({
+            url: "/api/user/nlogin",
+            method: "POST",
+            contentType : 'application/json; charset=utf-8',
+            data: JSON.stringify(_data),
+            success: (data, status, xhr)=>{
+                let refreshToken = xhr.getResponseHeader("RefreshToken");
+                if(refreshToken.length < 20){
+                    refreshToken = null;
+                }
+                if(refreshToken === null || refreshToken === "" || Number(refreshToken) <= 0){
+                    alert("로그인 실패");
+                } else {
+                    localStorage.setItem("refreshToken", refreshToken);
+                    flutter_setLocalStorage("refreshToken", refreshToken);
+                    getAccessToken();
+                }
+            },
+            error: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+        });
+    }
+    function getAccessToken(){
+        $.ajax({
+            url: "/api/auth",
+            method: "POST",
+            beforeSend : function(xhr){
+                let refreshToken = localStorage.getItem("refreshToken");
+                xhr.setRequestHeader("RefreshToken", refreshToken);
+            },
+            contentType : 'application/json; charset=utf-8',
+            success: (data, status, xhr)=>{
+                let accessToken = xhr.getResponseHeader("Authorization");
+                localStorage.setItem("accessToken", accessToken);
+                alert("로그인 성공");
+                location.replace('/home');
+            },
+            error: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+        });
+    }
+    function ncode_user(){
+        let phone = $("#create_user_phone").val();
+        let regex = /^01[0-9]-?\d{3,4}-?\d{4}$/;
+        //alert(phone);
+        if(!regex.test(phone)){
+            alert("정상적인 전화번호가 아닙니다. 다시 입력해주세요.");
+            return false;
+        }
+
+        let _data = {};
+        _data["phone"] = phone;
+        $.ajax({
+            url: "/api/user/ncode",
+            method: "POST",
+            contentType : 'application/json; charset=utf-8',
+            data: JSON.stringify(_data),
+            success: (data, status, xhr)=>{
+                let code = data["code"] + "";
+                if(code === "not valid"){
+                    alert("정상적인 전화번호가 아닙니다. 다시 입력해주세요.");
+                    return false;
+                }
+                alert("sms 전송 창으로 이동합니다. 6자리 인증코드를 전송하시면 인증이 진행됩니다.");
+                //location.href = "sms:talhwan@daum.net?body=" + code;
+                listener_app_out_sms('info.claria.kr@gmail.com', code);
+                tempCode = code;
+
+                $(".create_user_phone").attr("readOnly", true);
+                //$(".btn_login").attr("disabled", false);
+
+                $(".div_after_ncode").removeClass("hidden");
+                $("#btn_sendcode").css("display", "none");
+                $("#btn_confirm").css("display", "block");
+            },
+            error: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+        });
+    }
+</script>
+
+</body>
+</html>

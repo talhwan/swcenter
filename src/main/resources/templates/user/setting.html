@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ko">
+<th:block th:replace="~{includes/user/head}" />
+<style>
+    .points-section {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .point-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .p-icon {
+        width: 24px;
+        height: 24px;
+        background: linear-gradient(135deg, #4285F4, #1976D2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    .ticket-icon {
+        color: #9C27B0;
+        font-size: 18px;
+    }
+
+    .point-text {
+        color: #4285F4;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .ct-text {
+        color: #9C27B0;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .prediction-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    .vote-ticket-btn {
+        background: linear-gradient(135deg, #4285F4, #9C27B0);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+    }
+
+    .vote-ticket-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4);
+    }
+
+    .vote-button {
+        background: linear-gradient(90deg, #8FCCFF 0%, #E0E7FF 25%, #F9EBFF 75%, #E7B0FF 100%);
+        border-radius: 12px;
+        padding: 8px;
+        display: flex;
+        justify-content: space-between;
+        margin: 16px 0;
+    }
+
+    .yes-option {
+        color: #1D8EFF;
+        font-weight: 700;
+    }
+
+    .no-option {
+        color: #B100FF;
+        font-weight: 700;
+    }
+
+    .participate-button {
+        background: #3B82F6;
+        color: white;
+        width: 100%;
+        padding: 12px 0;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+    }
+
+    .timer {
+        color: #6B7280;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        font-weight: 700;
+        margin-left: auto;
+    }
+
+    .bts-image {
+        width: 72px;
+        height: 72px;
+        border-radius: 8px;
+        background: linear-gradient(45deg, #1a1a1a, #333);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+        margin-right: 12px;
+    }
+
+    .p-icon {
+        background: #3B82F6;
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .ticket-icon {
+        color: #8B5CF6;
+        font-size: 16px;
+    }
+
+    .banner-bg {
+        background-color: #EAF3FE;
+    }
+    .banner-text-title {
+        color: #50A7FE;
+    }
+    .banner-text-content {
+        color: #6B7583;
+    }
+
+    .popup {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        width: 90%;
+        max-width: 400px;
+    }
+
+    .gradient-btn {
+        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .p-icon {
+        background: #3b82f6;
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .ticket-icon {
+        color: #8b5cf6;
+        font-size: 16px;
+    }
+
+    .yes-btn {
+        background: #e5f3ff;
+        color: #1e40af;
+        border: 1px solid #3b82f6;
+        border-radius: 6px;
+        padding: 6px 16px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .quantity-input {
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        padding: 8px 12px;
+        width: 80px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .slider {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 6px;
+        border-radius: 3px;
+        background: #e5e7eb;
+        outline: none;
+    }
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #3b82f6;
+        cursor: pointer;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .slider::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #3b82f6;
+        cursor: pointer;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .slider.purple::-webkit-slider-thumb {
+        background: #8b5cf6;
+    }
+
+    .slider.purple::-moz-range-thumb {
+        background: #8b5cf6;
+    }
+
+    .cancel-btn {
+        background: #f3f4f6;
+        color: #6b7280;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 500;
+        flex: 1;
+    }
+
+    .participate-btn {
+        background: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 500;
+        flex: 1;
+    }
+
+    .reward-text {
+        color: #059669;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .div_circle {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+        border-radius: 50%;
+        background: #F9F9F9;
+        border: 2px solid #E8EAEE;
+    }
+    .span_text_box {
+        padding : 4px 10px 6px 10px;
+        font-size: large;
+    }
+    .font_color_lightblue {
+        color: #1D8EFF;
+    }
+    .font_color_pink {
+        color: #BB20FF;
+    }
+    .btn_mypoint {
+        background-color: #EAF3FE;
+    }
+    .btn_vote_continue {
+        background-color: #2D35F8;
+    }
+    .text_description {
+        font-size: 10px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    }
+    .btn_show_guide {
+        border: 1px solid #C1C4C9;
+    }
+
+    .prediction-item {
+        transition: all 0.2s ease;
+    }
+    .prediction-item:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .tab-active {
+        color: #3b82f6;
+        border-bottom: 2px solid #3b82f6;
+    }
+
+    .div_use_guide {
+        background-color: #f5f5f5;
+        padding: 10px 16px;
+        text-align: left;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .btn_more {
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+</style>
+<style>
+    .profile-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+    }
+    .invite-section {
+        background-color: #736DFD;
+    }
+    .div_invite_code {
+        color: #736DFD;
+    }
+    .stat-item {
+        text-align: center;
+        flex: 1;
+    }
+    .stat-label {
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 2px;
+    }
+    /*.prediction-item {
+        background: white;
+        border-radius: 12px;
+        margin-bottom: 8px;
+        padding: 16px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }*/
+
+    .prediction-item:not(:last-child) {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .album-icon {
+        width: 40px;
+        height: 40px;
+        background: #1f2937;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+
+        background-size: cover;       /* div 크기에 맞춰 꽉 차게 */
+        background-position: center;  /* 가운데 정렬 */
+        background-repeat: no-repeat; /* 반복 없이 */
+    }
+    .color_result_200 { color: #10b981; }
+    .color_result_400 { color: #ef4444; }
+    .color_result_0 { color: #333333; }
+</style>
+
+<body>
+
+<script id="list_info_opt" type="text/x-handlebars-template">
+    {{#resultData_opt}}
+    <div class="mb-3">
+        <div class="flex items-center justify-between bg-gray-100 rounded-lg h-12 px-3 relative overflow-hidden">
+            <div class="absolute left-0 top-0 h-full bg-gray-300" style="width: {{each_ratio_percent}}%;"></div>
+            <span class="text-gray-700 font-medium relative z-10">{{answer}}</span>
+            <div class="flex items-center relative z-10">
+                <span class="diamond-small"></span>
+                <span class="text-gray-700 font-medium">{{each_ratio_percent}}%</span>
+            </div>
+        </div>
+    </div>
+    {{/resultData_opt}}
+</script>
+<script type="text/javascript">
+    var list_info_opt = $("#list_info_opt").html();
+    var list_info_opt_template = Handlebars.compile(list_info_opt);
+</script>
+<script id="list_info_quizuser" type="text/x-handlebars-template">
+    {{#resultData_quizuser}}
+    <div class="prediction-item py-2 px-2" onclick="listener_quizuser_detail('{{id}}')">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center flex-1">
+                <div class="album-icon" style="background-image: url({{quizImg}})"></div>
+                <div class="flex-1">
+                    <div class="text-sm font-medium text-gray-900 mb-1">{{quizTitle}}</div>
+                </div>
+            </div>
+            <div class="text-right ml-3">
+                <div class="text-sm font-semibold font_quizuser_reward_{{result}} font_quizuser_color_{{id}} font_quizuser_reward_comma_{{id}}">{{reward_comma}} P</div>
+            </div>
+        </div>
+        <div class="flex items-center justify-between">
+            <div class="text-xs text-gray-500">{{createdAt_datetime}} • {{answer}}</div>
+            <div class="text-right ml-3">
+                <div class="text-xs rounded-lg bg-gray-200 py-1 px-2 font-bold font_quizuser_color_{{id}}"><span class="font_quizuser_result_{{result}}">{{result}}</span></div>
+                <input type="hidden" class="input_quizuser_result_{{id}}" value="{{result}}" />
+                <input type="hidden" class="input_quizuser_quizId_{{id}}" value="{{quizId}}" />
+            </div>
+        </div>
+    </div>
+    {{/resultData_quizuser}}
+</script>
+<script type="text/javascript">
+    var list_info_quizuser = $("#list_info_quizuser").html();
+    var list_info_quizuser_template = Handlebars.compile(list_info_quizuser);
+</script>
+
+<script>
+    function listener_quizuser_detail(obj_id){
+        let input_quizuser_result = $(".input_quizuser_result_" + obj_id).val();
+        let input_quizuser_quizId = $(".input_quizuser_quizId_" + obj_id).val();
+        if(input_quizuser_result + "" === "0"){
+            //진행중!
+            location.href = "/quiz/detail/" + input_quizuser_quizId;
+        } else if(input_quizuser_result + "" === "500") {
+            //취소
+        } else {
+            //결과 완료
+            detail_quiz(input_quizuser_quizId, obj_id);
+            //showPopup("result", input_quizuser_quizId);
+        }
+    }
+
+    function detail_quiz(quizId, quizuserId) {
+        //let quizId = getIdFromUrl(null);
+        let _data = new Map();
+        _data.url = "/api/quiz";
+        _data.type = "GET";
+        _data.param = {'id': quizId};
+        _data.success = function (obj_data, obj_status, obj_xhr) {
+            $("#tbody_quiz_list").html("");
+            let each = obj_data;
+            {
+                let font_quizuser_reward_comma = $(".font_quizuser_reward_comma_" + quizuserId).html();
+                $(".font_quiz_quizuser_reward_comma").html(font_quizuser_reward_comma);
+
+                $(".div_html_quiz_content").html(each["content"]);
+                $(".font_popup_quizuser_result").removeClass("hide");
+                $(".font_popup_quizuser_result").addClass("hide");
+                $(".font_popup_quizuser_result_" + each["result"]).removeClass("hide");
+
+                showPopup("result", quizId);
+
+                each["countuser_comma"] = numberWithKM(each["countuser"]);
+
+                let minamount = 0;
+                let totalamount = 0;
+                let totalamountcpoint = 0;
+                let totalamountcticket = 0;
+
+                let answergroups = each["answergroups"];
+                for(let i=0;i<answergroups.length;i++){
+                    let each_i = answergroups[i];
+                    let each_amountcpoint = Number(each_i["amountcpoint"]);
+                    let each_amountcticket = Number(each_i["amountcticket"]);
+                    let each_amount = each_amountcpoint + each_amountcticket * 10;
+                    totalamountcpoint += each_amountcpoint;
+                    totalamountcticket += each_amountcticket;
+                    totalamount += each_amount;
+
+                    if(i === 0){
+                        minamount = totalamount;
+                    }
+                    if(minamount > each_amount){
+                        minamount = each_amount;
+                    }
+                }
+
+                each["totalamountcticket_comma"] = numberWithCommas(totalamountcticket);
+                each["totalamount_comma"] = numberWithCommas(totalamount);
+                let tempReward = 0;
+                if (minamount > 0) {
+                    tempReward = totalamount / minamount;
+                }
+                tempReward = Math.floor(tempReward * 10) / 10;
+                each["ratioreward_comma"] = numberWithCommas(tempReward);
+
+                $("#div_popup_quiz_answergroups_list").html("");
+                for(let i=0;i<answergroups.length;i++) {
+                    let each_i = answergroups[i];
+                    let each_amountcpoint = Number(each_i["amountcpoint"]);
+                    let each_amountcticket = Number(each_i["amountcticket"]);
+                    let each_amount = each_amountcpoint + each_amountcticket * 10;
+                    let each_ratio = 0;
+                    let each_ratio_percent = 0;
+                    if (totalamount > 0) {
+                        each_ratio = each_amount * 100 / totalamount;
+                        each_ratio_percent = Math.round(each_ratio * 10) / 10;
+                    }
+
+                    each_i["each_ratio_percent"] = each_ratio_percent;
+                    let tList = [];
+                    tList.push(each_i);
+                    $("#div_popup_quiz_answergroups_list").append(list_info_opt_template({"resultData_opt": tList}));
+                }
+            }
+            listenerAfterDetail(obj_data, "quiz");
+        }
+        _data.error = function (obj_data, obj_status, obj_xhr) {
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+</script>
+
+<div class="main-container shadow-2xl items-center w-full max-w-md min-h-screen mx-auto">
+
+    <th:block th:replace="~{includes/user/popup_layer}" />
+    <!-- Header -->
+    <th:block th:replace="~{includes/user/header_empty}" />
+    <!--<th:block th:replace="~{includes/user/header_page}" />
+    <script>$("#h1_header_page_title").html("설정");$("#i_header_page_goback").remove();</script>-->
+
+    <!-- Main Content -->
+    <div class="mx-auto">
+
+        <div class="rounded-lg bg-white px-4 py-4">
+            <!-- Header -->
+            <div class="flex items-center justify-between px-8 py-4 bg-white">
+                <div class="flex items-center">
+                    <div class="profile-avatar mr-3">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-gray-900"><span class="font_myuser_nick">-</span></div>
+                    </div>
+                </div>
+                <button class="text-gray-600 text-sm px-3 py-1 border border-gray-300 rounded-md" onclick="location.href = '/user/profile'">
+                    편집
+                </button>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="pt-2 pb-4">
+                <div class="flex items-center justify-between rounded-lg">
+                    <div class="stat-item cursor-pointer" onclick="location.href = '/cpoint/list/0'">
+                        <div class="font-semibold text-gray-600"><span class="font_myuser_amountcpoint_comma">-</span></div>
+                        <div class="stat-label">포인트 (CP)</div>
+                    </div>
+                    <div class="stat-item cursor-pointer" onclick="location.href = '/quizuser/list'">
+                        <div class="font-semibold text-gray-600"><span class="font_myuser_countquizuser_comma">-</span></div>
+                        <div class="stat-label">투표 참여 수</div>
+                    </div>
+                    <div class="stat-item cursor-pointer" onclick="location.href = '/cpoint/list/1'">
+                        <div class="font-semibold text-gray-600"><span class="font_myuser_amountcticket_comma">-</span></div>
+                        <div class="stat-label">티켓 (CT)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invite Friends Section -->
+        <div class="mx-4 mb-4">
+            <div class="invite-section rounded-lg p-4 text-white relative">
+                <div class="font-bold mb-1">INVITE FRIENDS!!!</div>
+                <div class="text-sm mb-3">INVITE NOW AND GET 10,000 POINTS!!!</div>
+                <div class="div_invite_code bg-white bg-opacity-90 rounded-md px-3 py-1 mr-8 font-mono text-center font-bold">
+                    CODE : <span class="font_myuser_code">-</span>
+                </div>
+                <div class="absolute cursor-pointer right-4 top-1/2 transform -translate-y-1/2" onclick="listener_share();">
+                    <i class="fas fa-chevron-right text-white text-lg"></i>
+                </div>
+            </div>
+        </div>
+        <script>
+            function listener_share(){
+                let temp_url = "https://claira.kr/user/invite/";
+                temp_url += "" + $(".font_myuser_code").html();
+                listener_app_out_share(temp_url);
+            }
+        </script>
+
+        <!-- Latest Results -->
+        <div class="px-4 mb-4">
+            <div class="rounded-lg bg-white text-center text-sm text-gray-600 mb-3 border border-gray-200 py-2 cursor-pointer" onclick="location.href = '/quizuser/list'">최신 투표 결과</div>
+        </div>
+
+        <!-- Prediction History -->
+        <div class="px-4 mb-1 mt-8">
+            <h3 class="font-semibold text-gray-900">Prediction History</h3>
+        </div>
+        <div class="prediction-list rounded-lg bg-white mx-2 p-2" id="tbody_quizuser_list"></div>
+
+        <div class="rounded-lg bg-white mt-8 mx-4 p-2 mb-8 shadow">
+            <div class="flex items-center justify-between py-3 border-gray-200" onclick="location.href='/user/setdetail'">
+                <div class="flex items-center">
+                    <i class="fas fa-cog text-gray-600 ml-2 mr-3"></i>
+                    <span class="text-gray-900">설정</span>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </div>
+
+            <div class="flex items-center justify-between py-3 hidden">
+                <div class="flex items-center">
+                    <i class="fas fa-globe text-gray-600 mr-3"></i>
+                    <span class="text-gray-900">언어</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="text-gray-500 mr-2">한국어</span>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <th:block th:replace="~{includes/user/footer}" />
+    <script>listener_bottom_navi(3);</script>
+
+    <select class="select_search_quizuser_keyword hidden" name="result" id="search_quizuser_result">
+        <option value="" selected="selected">전체</option>
+        <option value="0">진행중</option>
+        <option value="200">승리</option>
+        <option value="400">패배</option>
+    </select>
+</div>
+
+<th:block th:replace="~{includes/user/popup_view}" />
+<th:block th:replace="~{includes/user/bottom}" />
+<script>
+    $(document).ready(function () {
+        console.log("ready!");
+        let refreshToken = localStorage.getItem("refreshToken");
+        if(!isNull(refreshToken)){
+            detail_user();
+            search_quizuser();
+        }
+    });
+    function detail_user() {
+        let userId = 0;
+        let _data = new Map();
+        _data.url = "/api/user";
+        _data.type = "GET";
+        _data.param = {'id': userId};
+        _data.success = function (obj_data, obj_status, obj_xhr) {
+            //alert(JSON.stringify(obj_data));
+            obj_data["amountcpoint_comma"] = numberWithCommas(obj_data["amountcpoint"]);
+            obj_data["amountcticket_comma"] = numberWithCommas(obj_data["amountcticket"]);
+            obj_data["countquizuser_comma"] = numberWithCommas(obj_data["countquizuser"]);
+            listenerAfterDetail(obj_data, "myuser");
+        }
+        _data.error = function (obj_data, obj_status, obj_xhr) {
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+
+    function formatDateTime(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 0부터 시작하므로 +1
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+
+    function search_quizuser() {
+        let _data = new Map();
+        _data.url = "/api/quizuser/scrollList";
+        _data.type = "GET";
+        _data.param = {
+            perpage: 10
+            , orderby: "id"
+            , orderway: "DESC"
+            , cursor: null
+            , deleted: false
+            , userId: 0
+        };
+        _data.success = function (obj_data, obj_status, obj_xhr) {
+            let tempList = obj_data;
+            for (let each of tempList) {
+                let tempId = each["id"];
+                let tList = [];
+                tList.push(each);
+
+                let createdAt = new Date(each["createdAt"]);
+                each["createdAt_datetime"] = formatDateTime(createdAt);
+
+                let amountcpoint = Number(each["amountcpoint"]);
+                let amountcticket = Number(each["amountcticket"]);
+                let amountTotal = amountcpoint + amountcticket * 10;
+
+                each["reward_comma"] = numberWithCommas(each["reward"]);
+
+                //font_quizuser_color_{{id}}
+                $("#tbody_quizuser_list").append(list_info_quizuser_template({"resultData_quizuser": tList}));
+                $(".font_quizuser_color_" + tempId).addClass("color_result_" + each["result"]);
+            }
+            listenerAfterScrollList("quizuser");
+
+            $(".font_quizuser_reward_0").remove();
+        }
+        _data.error = function (obj_data, obj_status, obj_xhr) {
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+</script>
+</body>
+</html>

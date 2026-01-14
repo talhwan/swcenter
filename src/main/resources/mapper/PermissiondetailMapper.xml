@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thc.sprbasic2025.mapper.PermissiondetailMapper">
+
+	<select id="access" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.PermissiondetailDto$DetailResDto">
+		SELECT
+		permissiondetail.id
+		,permissiondetail.target
+		,permissiondetail.func
+		FROM permission, permissionuser, permissiondetail
+		WHERE permission.id = permissionuser.permission_id
+		AND permission.id = permissiondetail.permission_id
+		AND permissionuser.user_id = #{userId}
+		<if test = "target != null and target !=''">AND permissiondetail.target = #{target}</if>
+		AND permissiondetail.func = #{func}
+		AND permissionuser.deleted = false
+		AND permissiondetail.deleted = false
+		AND permission.deleted = false
+	</select>
+	<!---->
+	<select id="detail" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.PermissiondetailDto$DetailResDto">
+		SELECT permissiondetail.id
+			 , permissiondetail.deleted
+			 , permissiondetail.created_at as createdAt
+			 , permissiondetail.modified_at as modifiedAt
+
+			 , permissiondetail.permission_id as permissionId
+			 , permissiondetail.target
+			 , permissiondetail.func
+		FROM permissiondetail
+		WHERE permissiondetail.id = #{id}
+	</select>
+
+	<!-- 공통 WHERE 절 -->
+	<sql id="commonWhere">
+		WHERE permissiondetail.id is not NULL
+		<if test = "deleted != null">AND permissiondetail.deleted = #{deleted}</if>
+		<if test="sdate != null and sdate != ''">AND permissiondetail.created_at >= CONCAT(#{sdate}, ' 00:00:00')</if>
+		<if test="fdate != null and fdate != ''">AND CONCAT(#{fdate}, ' 23:59:59') >= permissiondetail.created_at</if>
+		<if test = "permissionId != null and permissionId != ''">AND permissiondetail.permission_id = #{permissionId}</if>
+		<if test = "target != null and target != ''">AND permissiondetail.target = #{target}</if>
+		<if test = "func != null and func != ''">AND permissiondetail.func = #{func}</if>
+	</sql>
+
+	<select id="list" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.PermissiondetailDto$DetailResDto">
+		SELECT permissiondetail.id
+		FROM permissiondetail
+		<include refid="commonWhere"/>
+	</select>
+
+	<select id="pagedListCount" parameterType="hashMap" resultType="Integer">
+		SELECT count(permissiondetail.id) as listsize
+		FROM permissiondetail
+		<include refid="commonWhere"/>
+	</select>
+	<select id="pagedList" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.PermissiondetailDto$DetailResDto">
+		SELECT permissiondetail.id
+		FROM permissiondetail
+		<include refid="commonWhere"/>
+
+		<if test = "orderby != null and orderby =='id'">ORDER BY permissiondetail.id </if>
+		<if test = "orderby != null and orderby =='title'">ORDER BY permissiondetail.title </if>
+		<if test = "orderway != null and orderway =='DESC'"> DESC</if>
+		<if test = "orderway != null and orderway =='ASC'"> ASC</if>
+		LIMIT #{offset}, #{perpage}
+	</select>
+	<select id="scrollList" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.PermissiondetailDto$DetailResDto">
+		SELECT permissiondetail.id
+		FROM permissiondetail
+		<include refid="commonWhere"/>
+
+		<if test = "orderby != null and orderby =='id'">
+			<if test = "orderway != null and orderway =='DESC'">
+				<if test = "mark != null and mark !=''">AND #{mark} > permissiondetail.id </if>
+				ORDER BY permissiondetail.id DESC
+			</if>
+			<if test = "orderway != null and orderway =='ASC'">
+				<if test = "mark != null and mark !=''">AND permissiondetail.id > #{mark}</if>
+				ORDER BY permissiondetail.id ASC
+			</if>
+		</if>
+		<if test = "orderby != null and orderby =='title'">
+			<if test = "orderway != null and orderway =='DESC'">
+				<if test = "mark != null and mark !=''">AND #{mark} > CONCAT(permissiondetail.title, '_', permissiondetail.id) </if>
+				ORDER BY permissiondetail.title DESC
+			</if>
+			<if test = "orderway != null and orderway =='ASC'">
+				<if test = "mark != null and mark !=''">AND CONCAT(permissiondetail.title, '_', permissiondetail.id) > #{mark}</if>
+				ORDER BY permissiondetail.title ASC
+			</if>
+		</if>
+
+		LIMIT 0, #{perpage}
+	</select>
+</mapper>

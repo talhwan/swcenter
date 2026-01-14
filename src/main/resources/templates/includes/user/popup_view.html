@@ -1,0 +1,627 @@
+<!-- 팝업 -->
+<div class="div_popup_view popup p-2 fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md hidden" style="z-index: 9999;">
+    <!-- X 닫기 버튼 -->
+    <button class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl btn_popup_close" onclick="hidePopup();">
+        <i class="fas fa-times"></i>
+    </button>
+    <input type="hidden" id="detail_myuser_amountcpoint" />
+    <input type="hidden" id="detail_myuser_amountcticket" />
+
+    <!-- 팝업 내용 -->
+    <div id="div_popup_content_popup_backup" class="div_popup_content hidden">
+        <button class="absolute top-4 right-4 bg-gray-100 text-gray-800 hover:text-gray-600 text-xl px-2" onclick="listener_popup_popup_close();"><i class="fas fa-times"></i></button>
+        <!-- 모달 헤더 -->
+        <div id="tbody_popup_list1">
+            <img src="https://staticfile-three.vercel.app/frontrewardquiz/img/guide/2.jpg" alt="popup">
+        </div>
+    </div>
+    <script>
+        function listener_popup_popup_close(){
+            //alert(1);
+            let img_popup_img = $(".img_popup_img");
+            $(img_popup_img[0]).remove();
+
+            img_popup_img = $(".img_popup_img");
+            if(!isNull(img_popup_img) && img_popup_img.length > 0){
+                $(img_popup_img[0]).removeClass("hidden");
+            } else {
+                hidePopup();
+            }
+        }
+    </script>
+
+    <!-- 팝업 내용 -->
+    <div id="div_popup_content_popup" class="div_popup_content hidden">
+        <!-- 모달 헤더 -->
+        <div class="pt-8 pb-4">
+            <div class="simple-slider" id="tbody_popup_list">
+<!--                <div class="slide">-->
+<!--                    <img src="https://staticfile-three.vercel.app/frontrewardquiz/img/guide/guide_1.jpg" alt="Slide 1">-->
+<!--                </div>-->
+            </div>
+            <button class="nav prev" onclick="changeSlide(-1)">❮</button>
+            <button class="nav next" onclick="changeSlide(1)">❯</button>
+
+            <div class="dots" id="tbody_popup_dots">
+            </div>
+            <div class="flex justify-between">
+                <div><input type="checkbox" id="input_slide_popup_not_today" />&nbsp; <label for="input_slide_popup_not_today">오늘 하루 보지 않기</label> </div>
+                <div class="px-2 bg-gray-200" onclick="listener_slide_popup_close()"><i class="fas fa-times"></i></div>
+            </div>
+            <script>
+                function getTodayStr() {
+                    const d = new Date();
+                    const y = d.getFullYear();
+                    const m = String(d.getMonth() + 1).padStart(2, "0");
+                    const day = String(d.getDate()).padStart(2, "0");
+                    return `${y}-${m}-${day}`;
+                }
+                function listener_slide_popup_close(){
+                    let input_slide_popup_not_today = $("#input_slide_popup_not_today").prop("checked");
+                    //alert(input_slide_popup_not_today);
+                    if(input_slide_popup_not_today){
+                        localStorage.setItem("slide_popup_not_today", getTodayStr());
+                    }
+                    hidePopup();
+                }
+            </script>
+            <style>
+                .simple-slider {
+                    position: relative;
+                    /*max-width: 600px;
+                    margin: 50px auto;
+                    border-radius: 10px;*/
+                    overflow: hidden;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                }
+                .slide {
+                    display: none;
+                    width: 100%;
+                }
+                .slide.active { display: block; }
+                .slide img {
+                    width: 100%;
+                    height: auto;
+                    object-fit: cover;
+                }
+                .nav {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: rgba(0,0,0,0.5);
+                    color: white;
+                    border: none;
+                    padding: 10px 15px;
+                    cursor: pointer;
+                    font-size: 18px;
+                }
+                .prev { left: 10px; }
+                .next { right: 10px; }
+                .dots {
+                    text-align: center;
+                    padding: 20px;
+                    background: white;
+                }
+                .dot {
+                    height: 10px;
+                    width: 10px;
+                    margin: 0 5px;
+                    background-color: #bbb;
+                    border-radius: 50%;
+                    display: inline-block;
+                    cursor: pointer;
+                }
+                .dot.active { background-color: #717171; }
+            </style>
+            <script>
+                let slideIndex = 0;
+                let slides = document.querySelectorAll('.slide');
+                let dots = document.querySelectorAll('.dot');
+
+                function initSlide(){
+                    slides = document.querySelectorAll('.slide');
+                    dots = document.querySelectorAll('.dot');
+                    currentSlide(1);
+                }
+
+                function showSlide(n) {
+                    slides[slideIndex].classList.remove('active');
+                    dots[slideIndex].classList.remove('active');
+
+                    slideIndex = (n + slides.length) % slides.length;
+
+                    slides[slideIndex].classList.add('active');
+                    dots[slideIndex].classList.add('active');
+                }
+
+                function changeSlide(n) {
+                    showSlide(slideIndex + n);
+                }
+
+                function currentSlide(n) {
+                    showSlide(n - 1);
+                }
+
+                // 자동 슬라이드 (선택사항)
+                //setInterval(() => changeSlide(1), 3000);
+            </script>
+        </div>
+    </div>
+
+    <!-- 팝업2 내용 -->
+    <div id="div_popup_content_guide" class="div_popup_content hidden">
+        <!-- 모달 헤더 -->
+        <div class="pt-8 pb-4">
+            <div class="simple-slider" id="tbody_popup2_list">
+                <div class="slide2"><img src="https://staticfile-three.vercel.app/frontrewardquiz/img/guide/guide_1.jpeg" alt="Slide 1"></div>
+                <div class="slide2"><img src="https://staticfile-three.vercel.app/frontrewardquiz/img/guide/guide_2.jpeg" alt="Slide 2"></div>
+                <div class="slide2"><img src="https://staticfile-three.vercel.app/frontrewardquiz/img/guide/guide_3.jpeg" alt="Slide 3"></div>
+                <div class="slide2"><img src="https://staticfile-three.vercel.app/frontrewardquiz/img/guide/guide_4.jpeg" alt="Slide 4"></div>
+                <div class="slide2"><img src="https://staticfile-three.vercel.app/frontrewardquiz/img/guide/guide_5.jpeg" alt="Slide 5"></div>
+                <div class="slide2"><img src="https://staticfile-three.vercel.app/frontrewardquiz/img/guide/guide_6.jpeg" alt="Slide 6"></div>
+                <div class="slide2"><img src="https://staticfile-three.vercel.app/frontrewardquiz/img/guide/guide_7.jpeg" alt="Slide 7"></div>
+            </div>
+
+            <!-- 좌우 네비 버튼 -->
+            <button class="nav2 prev2" onclick="changeSlide2(-1)">❮</button>
+            <button class="nav2 next2" onclick="changeSlide2(1)">❯</button>
+
+            <!-- 도트 영역 -->
+            <div class="dots2" id="tbody_popup2_dots">
+                <span class="dot2" onclick="currentSlide2(1)"></span>
+                <span class="dot2" onclick="currentSlide2(2)"></span>
+                <span class="dot2" onclick="currentSlide2(3)"></span>
+                <span class="dot2" onclick="currentSlide2(4)"></span>
+                <span class="dot2" onclick="currentSlide2(5)"></span>
+                <span class="dot2" onclick="currentSlide2(6)"></span>
+                <span class="dot2" onclick="currentSlide2(7)"></span>
+            </div>
+        </div>
+
+        <style>
+            .slide2 {
+                display: none;
+                width: 100%;
+            }
+            .slide2.active { display: block; }
+            .slide2 img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+
+            .nav2 {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(0,0,0,0.5);
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                cursor: pointer;
+                font-size: 18px;
+            }
+            .prev2 { left: 10px; }
+            .next2 { right: 10px; }
+
+            .dots2 {
+                text-align: center;
+                padding: 20px;
+                background: white;
+            }
+            .dot2 {
+                height: 10px;
+                width: 10px;
+                margin: 0 5px;
+                background-color: #bbb;
+                border-radius: 50%;
+                display: inline-block;
+                cursor: pointer;
+            }
+            .dot2.active { background-color: #717171; }
+        </style>
+        <script>
+            $( document ).ready(function() {
+                initSlide2();
+            });
+            function listener_slide_popup2_close() {
+                hidePopup();
+            }
+            // ====== 슬라이더2 관련 변수 ======
+            let slide2Index = 0;
+            let slides2 = [];
+            let dots2 = [];
+
+            function initSlide2() {
+                slides2 = document.querySelectorAll('#tbody_popup2_list .slide2');
+                dots2 = document.querySelectorAll('#tbody_popup2_dots .dot2');
+
+                if (slides2.length === 0 || dots2.length === 0) {
+                    return;
+                }
+                slide2Index = 0;
+                // 모두 초기화
+                slides2.forEach(s => s.classList.remove('active'));
+                dots2.forEach(d => d.classList.remove('active'));
+
+                // 첫 번째만 보이게
+                slides2[0].classList.add('active');
+                dots2[0].classList.add('active');
+            }
+
+            function showSlide2(n) {
+                if (slides2.length === 0 || dots2.length === 0) return;
+
+                slides2[slide2Index].classList.remove('active');
+                dots2[slide2Index].classList.remove('active');
+
+                slide2Index = (n + slides2.length) % slides2.length;
+
+                slides2[slide2Index].classList.add('active');
+                dots2[slide2Index].classList.add('active');
+            }
+
+            function changeSlide2(n) {
+                showSlide2(slide2Index + n);
+            }
+            function currentSlide2(n) {
+                showSlide2(n - 1);
+            }
+        </script>
+
+    </div>
+
+    <div id="div_popup_content_login" class="div_popup_content hidden">
+        <!-- 모달 헤더 -->
+        <div class="pt-8 pb-4">
+            <h2 class="text-xl font-bold text-gray-900 text-center mb-4">
+                로그인 후 사용이 가능한 기능입니다.
+            </h2>
+
+            <!-- 설명 텍스트 -->
+            <p class="text-gray-600 text-center leading-relaxed mb-8">
+                아직 가입하지 않은 경우,<br>회원가입을 진행해주세요.<br>회원가입/로그인 페이지로 이동하시겠습니까?
+            </p>
+        </div>
+
+        <!-- 버튼 영역 -->
+        <div class="space-y-3">
+            <!-- 기본 버튼 - 투표권 받기 -->
+            <button onclick="getLogin()" class="w-full btn-primary text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-105">
+                로그인 페이지로 이동
+            </button>
+            <!-- 보조 버튼 - 사용 가이드 보기 -->
+            <button onclick="hidePopup()" class="btn_show_guide w-full hover:bg-gray-100 text-gray-700 font-semibold py-4 px-6 rounded-xl transition-all duration-200">
+                취소
+            </button>
+        </div>
+        <script>
+            function getLogin(){
+                hidePopup();
+                location.replace("/user/login");
+            }
+            function showGuide(){
+                hidePopup();
+                showPopup('guide', null);
+            }
+        </script>
+    </div>
+
+    <div id="div_popup_content_ticket" class="div_popup_content hidden">
+        <!-- 모달 헤더 -->
+        <div class="pt-8 pb-4">
+            <h2 class="text-xl font-bold text-gray-900 text-center mb-4">
+                <span class="font_less_amount font_less_amount_cpoint">포인트가</span><span class="font_less_amount font_less_amount_cticket">티켓이</span> 부족합니다
+            </h2>
+
+            <!-- 설명 텍스트 -->
+            <p class="text-gray-600 text-center leading-relaxed mb-8">
+                <span class="font_less_amount font_less_amount_gift">상품을 구매하려면</span><span class="font_less_amount font_less_amount_cpoint font_less_amount_cticket">투표에 참여하려면</span> <span class="font_less_amount font_less_amount_cpoint">포인트를</span><span class="font_less_amount font_less_amount_cticket">티켓을</span><br>
+                리워드로 적립하거나 사용가이드를<br>
+                확인하세요.
+            </p>
+        </div>
+
+        <!-- 버튼 영역 -->
+        <div class="space-y-3">
+            <!-- 기본 버튼 - 투표권 받기 -->
+            <button onclick="getTickets()" class="w-full btn-primary text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-105">
+                투표권 받기
+            </button>
+            <!-- 보조 버튼 - 사용 가이드 보기 -->
+            <button onclick="showGuide()" class="btn_show_guide w-full hover:bg-gray-100 text-gray-700 font-semibold py-4 px-6 rounded-xl transition-all duration-200">
+                사용 가이드 보기
+            </button>
+        </div>
+        <script>
+            function getTickets(){
+                hidePopup();
+                random_todayquest();
+            }
+            function showGuide(){
+                hidePopup();
+                showPopup('guide', null);
+            }
+        </script>
+    </div>
+
+    <div id="div_popup_content_apply" class="div_popup_content hidden">
+        <input type="hidden" id="create_quizuser_quizId" />
+        <input type="hidden" id="create_quizuser_answer" />
+        <!-- 헤더 -->
+        <div class="flex items-center justify-left mb-6 mr-6">
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2">
+                    <div class="p-icon">P</div>
+                    <span class="text-blue-600 font-medium"><span class="font_myuser_amountcpoint_comma">-</span> P</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-ticket-alt ticket-icon"></i>
+                    <span class="text-purple-600 font-medium"><span class="font_myuser_amountcticket_comma">-</span> CT</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 제목 -->
+        <h2 class="text-xl font-bold text-gray-900 mb-2" id="div_apply_quiz_title">-</h2>
+        <!--<div id="div_apply_quiz_title">-</div>-->
+
+        <!-- 선택 영역 -->
+        <div class="mb-6">
+<!--            <span class="text-gray-600">당신의 선택은?</span>-->
+            <div id="div_apply_quizopt_list"></div>
+            <span id="span_apply_quizopt_answer" class="text-gray-600">-</span>
+        </div>
+
+        <!-- 수량 입력 -->
+        <div class="flex items-center justify-between mb-4">
+            <span class="text-gray-700 font-medium">포인트:</span>
+            <input type="number" value="0" class="quantity-input" id="input_quizuser_amountcpoint" name="amountcpoint" onchange="listener_input_amount(this)"/>
+            <span class="text-gray-700 font-medium">티켓:</span>
+            <input type="number" value="0" class="quantity-input" id="input_quizuser_amountcticket" name="amountcticket" onchange="listener_input_amount(this)"/>
+        </div>
+        <script>
+            function listener_quiz_opt_clicked(obj_title, obj_this){
+                $("#create_quizuser_answer").val(obj_title);
+                $(".quiz_opt_btn").removeClass("quiz_opt_btn_on");
+                $(".quiz_opt_btn").removeClass("quiz_opt_btn_off");
+                $(".quiz_opt_btn").addClass("quiz_opt_btn_off");
+                $(obj_this).removeClass("quiz_opt_btn_off");
+                $(obj_this).addClass("quiz_opt_btn_on");
+            }
+            function listener_input_amount(obj_this){
+                let tempId = $(obj_this).attr("name");
+                let tempValue = $(obj_this).val();
+                if(tempValue < 0){
+                    tempValue = 0;
+                }
+                $("#span_quizuser_" + tempId).html(tempValue);
+                $("#slider_quizuser_" + tempId).val(tempValue);
+                $("#input_quizuser_" + tempId).val(tempValue);
+
+                let temp_width = $("#slider_quizuser_" + tempId).width();
+                let temp_width2 = $("#slider_quizuser_" + tempId + "_value").width();
+
+                let base_value = 0.001;
+                if(tempId + "" === "amountcticket"){
+                    base_value = 0.1;
+                }
+                let temp_left = (tempValue * base_value) * temp_width - temp_width2 * 0.5;
+                $("#slider_quizuser_" + tempId + "_value").css("padding-left", temp_left + "px");
+                $("#slider_quizuser_" + tempId + "_value").html(tempValue);
+            }
+        </script>
+
+        <!-- 포인트 슬라이더 -->
+        <div class="mb-4">
+            <div class="flex items-center mb-2">
+                <div class="p-icon mr-2">P</div>
+                <span class="text-blue-600 font-medium">포인트</span>
+            </div>
+
+            <div class="flex">
+                <span class="w-8"></span><span id="slider_quizuser_amountcpoint_value">0</span>P
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <span class="text-sm text-gray-500 w-8" id="span_quizuser_amountcpoint">0</span>
+                <input type="range" min="0" max="1000" step="10" value="0" class="slider" id="slider_quizuser_amountcpoint" name="amountcpoint" oninput="listener_input_amount(this)" />
+                <span class="text-sm text-gray-500 w-15">/ 1,000</span>
+            </div>
+        </div>
+
+        <!-- 티켓 슬라이더 -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <i class="fas fa-ticket-alt ticket-icon mr-2"></i>
+                <span class="text-purple-600 font-medium">티켓</span>
+            </div>
+
+            <div class="flex">
+                <span class="w-8"></span><span id="slider_quizuser_amountcticket_value">0</span>CT
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <span class="text-sm text-gray-500 w-8" id="span_quizuser_amountcticket">0</span>
+                <input type="range" min="0" max="10" value="0" class="slider" id="slider_quizuser_amountcticket" name="amountcticket" oninput="listener_input_amount(this)" />
+                <span class="text-sm text-gray-500 w-15">/ &nbsp;&nbsp;10</span>
+            </div>
+        </div>
+
+        <!-- 예상 리워드 -->
+        <!--<div class="flex items-center justify-between mb-6">
+            <span class="text-gray-700 font-medium">예상 리워드</span>
+            <span class="reward-text">+150 P</span>
+        </div>-->
+
+        <!-- 버튼들 -->
+        <div class="flex space-x-3 mb-4">
+            <button class="cancel-btn" onclick="hidePopup();">취소</button>
+            <button class="participate-btn" onclick="create_quizuser();">참여하기</button>
+        </div>
+
+        <!-- 안내 텍스트 -->
+        <p class="text-xs text-gray-500 text-center leading-relaxed">
+            모든 예측은 흥미를 위해 제공된 흥미로운 추측일뿐입니다.<br>
+            포인트 예상 획득치는 이용약관에 따릅니다. 재미있게 이용해주세요.
+        </p>
+    </div>
+
+    <div id="div_popup_content_gift" class="div_popup_content hidden">
+        <input type="hidden" id="create_giftuser_giftId" />
+        <input type="hidden" id="create_giftuser_price" />
+        <!-- 헤더 -->
+        <div class="flex items-center justify-end mb-6 mt-6">
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2">
+                    <div class="p-icon">P</div>
+                    <span class="text-blue-600 font-medium"><span class="font_myuser_amountcpoint_comma">-</span> P</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-ticket-alt ticket-icon"></i>
+                    <span class="text-purple-600 font-medium"><span class="font_myuser_amountcticket_comma">-</span> CT</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 제목 -->
+        <img class="w-full rounded-lg object-cover" alt="이미지" id="img_gift_gift_img">
+
+        <div class="flex text-sm mt-3 mb-1">
+            <span>상품명 : </span>&nbsp;<span class="font-bold" id="div_gift_gift_title">-</span>
+        </div>
+        <div class="flex text-sm font-medium mt-1 mb-5">
+            가격 : &nbsp;
+            <div class="p-icon_small mr-1">P</div>
+            <span class="font_color_lightblue font-bold"><span id="div_gift_gift_price">-</span> P</span>
+        </div>
+
+        <!-- 버튼들 -->
+        <div class="flex space-x-3 mb-4">
+            <button class="cancel-btn" onclick="hidePopup();">취소</button>
+            <button class="participate-btn" onclick="create_giftuser();">구매하기</button>
+        </div>
+
+        <!-- 안내 텍스트 -->
+        <p class="text-xs text-gray-500 text-center leading-relaxed">
+            포인트를 상품 구매에 활용합니다.<br>
+            재미있게 이용해주세요.
+        </p>
+    </div>
+
+    <div id="div_popup_content_appinfo" class="div_popup_content hidden">
+        <!-- 모달 헤더 -->
+        <div class="pt-8 pb-4">
+            <h2 class="text-xl font-bold text-gray-900 text-center mb-4">
+                앱 정보
+            </h2>
+
+            <!-- 설명 텍스트 -->
+            <p class="text-gray-600 pb-4 text-center leading-relaxed">
+                APP version 1.0
+            </p>
+        </div>
+    </div>
+    <div id="div_popup_content_agreement" class="div_popup_content hidden">
+        <!-- 모달 헤더 -->
+        <div class="pt-8 pb-4">
+            <h2 class="text-xl font-bold text-gray-900 text-center mb-4">
+                이용약관 및 정책
+            </h2>
+
+            <!-- 설명 텍스트 -->
+            <p class="text-gray-600 text-center leading-relaxed" style="height:80vh; overflow-y: auto">
+                이용 약관<br/>
+                정책<br/>
+            </p>
+        </div>
+    </div>
+
+    <div id="div_popup_content_result" class="div_popup_content hidden">
+        <!-- 다이아몬드 아이콘 -->
+        <div class="flex justify-center mb-4 div_circle">
+            <img src="https://staticfile-three.vercel.app/frontrewardquiz/img/logo.png" style="width: 60px; height: 60px; margin-top:8px;"/>
+        </div>
+
+        <!-- You Won! 제목 -->
+        <div class="text-center mb-2 mt-2">
+            <h1 class="text-3xl font-bold font_color_lightblue font_popup_quizuser_result font_popup_quizuser_result_200 hide">You Won!</h1>
+            <h1 class="text-3xl font-bold font_color_pink font_popup_quizuser_result font_popup_quizuser_result_400 hide">You Lose!</h1>
+        </div>
+
+        <!-- 부제목 -->
+        <div class="text-center mb-6 mt-6">
+            <p class="text-xl text-sm font_popup_quizuser_result font_popup_quizuser_result_200"><b class="color_result_200">+<span class="font_quiz_quizuser_reward_comma">-</span></b> 획득</p>
+            <p class="text-xl text-gray-600 text-sm"><b><span class="font_quiz_totalamount_comma">-</span>P</b> 참여하였습니다.</p>
+        </div>
+
+        <div id="div_popup_quiz_answergroups_list">
+        </div>
+
+        <!-- 리워드 박스 -->
+        <div class="p-3 mb-5 text-center">
+            <!--<span class="span_text_box border border-gray-300 rounded-lg text-gray-700 font-medium"><span class="font_quiz_quizuser_reward_comma">-</span></span>-->
+            <span class="span_text_box border border-gray-300 rounded-lg text-gray-700 font-medium">최대 <span class="font_quiz_ratioreward_comma">-</span>x</span>
+        </div>
+
+        <!-- 버튼들 -->
+        <div class="grid grid-cols-2 gap-3 mb-4">
+            <button class="btn_mypoint font_color_lightblue py-3 px-4 rounded-lg font-medium hover:bg-gray-300 transition-colors font-bold" onclick="location.href = '/cpoint/list/0';">
+                마이 포인트
+            </button>
+            <button class="btn_vote_continue text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-600 transition-colors" onclick="location.href = '/quiz/list';">
+                계속 투표하기
+            </button>
+        </div>
+
+        <!-- 하단 안내 텍스트 -->
+        <div class="text-center">
+            <p class="text_description text-gray-500 leading-relaxed">
+                모든 예측 결과 통계는 이벤트 종료 후 공개되며,<br>포인트 배분 로직은 이용약관 [별표1]에 게시되어 있습니다.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showPopup(obj_target, obj_id){
+        $(".btn_popup_close").removeClass("hidden");
+        if(obj_target === "popup") {
+            $(".btn_popup_close").addClass("hidden");
+        }
+
+        $(".div_popup_view").removeClass("hidden");
+        $(".div_popup_content").removeClass("hidden");
+        $(".div_popup_content").addClass("hidden");
+        $("#div_popup_content_" + obj_target).removeClass("hidden");
+
+        if(obj_target === "apply") {
+            $("#input_quizuser_amountcpoint").val(0);
+            listener_input_amount("#input_quizuser_amountcpoint");
+            $("#input_quizuser_amountcticket").val(0);
+            listener_input_amount("#input_quizuser_amountcticket");
+
+            $("#create_quizuser_quizId").val(obj_id);
+            $("#create_quizuser_answer").val("");
+            $("#div_apply_quiz_title").html($("#input_quiz_title_" + obj_id).val());
+            $("#div_apply_quizopt_list").html($("#div_quizopt_" + obj_id).html());
+        }
+        if(obj_target === "gift") {
+
+            $("#create_giftuser_giftId").val(obj_id);
+            $("#img_gift_gift_img").attr("src", $("#input_gift_img_" + obj_id).val());
+            $("#div_gift_gift_title").html($("#input_gift_title_" + obj_id).val());
+            $("#div_gift_gift_price").html(numberWithCommas($("#input_gift_price_" + obj_id).val()));
+            $("#create_giftuser_price").val($("#input_gift_title_" + obj_id).val());
+        }
+        if (obj_target === "ticket") {
+            $(".font_less_amount").removeClass("hidden");
+            $(".font_less_amount").addClass("hidden");
+            $(".font_less_amount_" + obj_id).removeClass("hidden");
+        }
+    }
+    function hidePopup(){
+        $(".div_popup_view").removeClass("hidden");
+        $(".div_popup_view").addClass("hidden");
+    }
+</script>

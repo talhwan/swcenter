@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thc.sprbasic2025.mapper.UserMapper">
+
+	<!---->
+	<select id="detail" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.UserDto$DetailResDto">
+		SELECT user.id
+			 , user.deleted
+			 , user.created_at as createdAt
+			 , user.modified_at as modifiedAt
+			 , user.username
+			 , user.code
+			 , user.name
+			 , user.nick
+			 , user.phone
+			 , user.birthyear
+			 , user.gender
+			 , user.region
+			 , user.rfrom
+			 , user.fcm
+
+			 , user.amountcpoint
+			 , user.amountcticket
+			 , user.countquizuser
+             , user.counttoonuser
+             , user.countqtoonuser
+
+             , user.updatecpoint
+			 , user.allowalarm
+			 , user.alarmquizresult
+			 , user.alarmquiztoday
+		FROM user
+		WHERE user.id = #{id}
+	</select>
+
+	<!-- 공통 WHERE 절 -->
+	<sql id="commonWhere">
+		WHERE user.id is not NULL
+		<if test = "deleted != null">AND user.deleted = #{deleted}</if>
+		<if test="sdate != null and sdate != ''">AND user.created_at >= CONCAT(#{sdate}, ' 00:00:00')</if>
+		<if test="fdate != null and fdate != ''">AND CONCAT(#{fdate}, ' 23:59:59') >= user.created_at</if>
+		<if test = "code != null and code !=''">AND user.code = #{code}</if>
+		<if test = "name != null and name !=''">AND user.name LIKE CONCAT('%', #{name}, '%')</if>
+		<if test = "birthyear != null and birthyear !=''">AND user.birthyear = #{birthyear}</if>
+		<if test = "gender != null and gender !=''">AND user.gender = #{gender}</if>
+		<if test = "region != null and region !=''">AND user.region = #{region}</if>
+		<if test = "rfrom != null">AND user.rfrom = #{rfrom}</if>
+		<if test = "fcm != null and fcm !=''">AND user.fcm = #{fcm}</if>
+	</sql>
+
+	<select id="list" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.UserDto$DetailResDto">
+		SELECT user.id
+		FROM user
+		<include refid="commonWhere"/>
+	</select>
+
+	<select id="pagedListCount" parameterType="hashMap" resultType="Integer">
+		SELECT count(user.id) as listsize
+		FROM user
+		<include refid="commonWhere"/>
+	</select>
+	<select id="pagedList" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.UserDto$DetailResDto">
+		SELECT user.id
+		FROM user
+		<include refid="commonWhere"/>
+
+		<if test = "orderby != null and orderby =='id'">ORDER BY user.id </if>
+		<if test = "orderby != null and orderby =='name'">ORDER BY user.name </if>
+		<if test = "orderway != null and orderway =='DESC'"> DESC</if>
+		<if test = "orderway != null and orderway =='ASC'"> ASC</if>
+		LIMIT #{offset}, #{perpage}
+	</select>
+	<select id="scrollList" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.UserDto$DetailResDto">
+		SELECT user.id
+		FROM user
+		<include refid="commonWhere"/>
+
+		<if test = "orderby != null and orderby =='id'">
+			<if test = "orderway != null and orderway =='DESC'">
+				<if test = "mark != null and mark !=''">AND #{mark} > user.id </if>
+				ORDER BY user.id DESC
+			</if>
+			<if test = "orderway != null and orderway =='ASC'">
+				<if test = "mark != null and mark !=''">AND user.id > #{mark}</if>
+				ORDER BY user.id ASC
+			</if>
+		</if>
+		<if test = "orderby != null and orderby =='amountcpoint'">
+			<if test = "orderway != null and orderway =='DESC'">
+				<if test = "mark != null and mark !=''">AND #{mark} > CONCAT(user.amountcpoint, '_', user.id) </if>
+				ORDER BY user.amountcpoint DESC
+			</if>
+			<if test = "orderway != null and orderway =='ASC'">
+				<if test = "mark != null and mark !=''">AND CONCAT(user.amountcpoint, '_', user.id) > #{mark}</if>
+				ORDER BY user.amountcpoint ASC
+			</if>
+		</if>
+		LIMIT 0, #{perpage}
+	</select>
+</mapper>

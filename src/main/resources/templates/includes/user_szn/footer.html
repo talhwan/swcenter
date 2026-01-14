@@ -1,0 +1,38 @@
+<!-- bottom nav -->
+<div class="div_footer_nav" style="height:68px;"></div>
+<nav class="fixed bottom-0 w-full bg-white border-t border-gray-200 max-w-md mx-auto div_footer_nav">
+    <ul class="grid grid-cols-5 text-center py-2 ">
+        <li class="text-gray-600 div_nav_footer div_nav_footer_0 cursor-pointer" onclick="listener_href('/home', 'false')">
+            <div class="text-lg">🏠</div>
+            <div class="text_2xs">홈</div>
+        </li>
+        <li class="text-gray-600 div_nav_footer div_nav_footer_1 font-semibold cursor-pointer" onclick="listener_href('/user/mypage', 'false')">
+            <div class="text-lg">❓</div>
+            <div class="text_2xs">퀴즈</div>
+        </li>
+        <li class="text-gray-600 div_nav_footer div_nav_footer_2 cursor-pointer" onclick="listener_href('/user/mypage', 'false')">
+            <div class="text-lg">🏬</div>
+            <div class="text_2xs">상점</div>
+        </li>
+        <li class="text-gray-600 div_nav_footer div_nav_footer_3 cursor-pointer" onclick="listener_href('/user/mypage', 'false')">
+            <div class="text-lg">👥</div>
+            <div class="text_2xs">커뮤니티</div>
+        </li>
+        <li class="text-gray-600 div_nav_footer div_nav_footer_4 cursor-pointer" onclick="listener_href('/user/mypage', 'true')">
+            <div class="text-lg">👤</div>
+            <div class="text_2xs">마이페이지</div>
+        </li>
+    </ul>
+</nav>
+
+<script>
+    function listener_footer_clicked(obj_class){
+        let tempClassName = ".div_nav_footer";
+        $(tempClassName).removeClass("text-indigo-600");
+        $(tempClassName).removeClass("text-gray-600");
+        $(tempClassName).addClass("text-gray-600");
+        $(tempClassName + "_" + obj_class).removeClass("text-gray-600");
+        $(tempClassName + "_" + obj_class).addClass("text-indigo-600");
+        $(tempClassName + "_" + obj_class).addClass("font-bold");
+    }
+</script>

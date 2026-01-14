@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thc.sprbasic2025.mapper.FaqMapper">
+
+	<!---->
+	<select id="detail" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.FaqDto$DetailResDto">
+		SELECT faq.id
+			 , faq.deleted
+			 , faq.created_at as createdAt
+			 , faq.modified_at as modifiedAt
+
+			 , faq.sequence
+			 , faq.title
+			 , faq.content
+			 , faq.img
+		FROM faq
+		WHERE faq.id = #{id}
+	</select>
+
+	<!-- 공통 WHERE 절 -->
+	<sql id="commonWhere">
+		WHERE faq.id is not NULL
+		<if test = "deleted != null">AND faq.deleted = #{deleted}</if>
+		<if test="sdate != null and sdate != ''">AND faq.created_at >= CONCAT(#{sdate}, ' 00:00:00')</if>
+		<if test="fdate != null and fdate != ''">AND CONCAT(#{fdate}, ' 23:59:59') >= faq.created_at</if>
+		<if test = "title != null and title !=''">AND faq.title LIKE CONCAT('%', #{title}, '%')</if>
+	</sql>
+
+	<select id="list" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.FaqDto$DetailResDto">
+		SELECT faq.id
+		FROM faq
+		<include refid="commonWhere"/>
+		ORDER BY faq.sequence ASC
+	</select>
+
+	<select id="pagedListCount" parameterType="hashMap" resultType="Integer">
+		SELECT count(faq.id) as listsize
+		FROM faq
+		<include refid="commonWhere"/>
+	</select>
+	<select id="pagedList" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.FaqDto$DetailResDto">
+		SELECT faq.id
+		FROM faq
+		<include refid="commonWhere"/>
+
+		<if test = "orderby != null and orderby =='id'">ORDER BY faq.id </if>
+		<if test = "orderby != null and orderby =='title'">ORDER BY faq.title </if>
+		<if test = "orderway != null and orderway =='DESC'"> DESC</if>
+		<if test = "orderway != null and orderway =='ASC'"> ASC</if>
+		LIMIT #{offset}, #{perpage}
+	</select>
+	<select id="scrollList" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.FaqDto$DetailResDto">
+		SELECT faq.id
+		FROM faq
+		<include refid="commonWhere"/>
+
+		<if test = "orderby != null and orderby =='id'">
+			<if test = "orderway != null and orderway =='DESC'">
+				<if test = "cursor != null and cursor !=''">AND #{cursor} > faq.id </if>
+				ORDER BY faq.id DESC
+			</if>
+			<if test = "orderway != null and orderway =='ASC'">
+				<if test = "cursor != null and cursor !=''">AND faq.id > #{cursor}</if>
+				ORDER BY faq.id ASC
+			</if>
+		</if>
+		<if test = "orderby != null and orderby =='title'">
+			<if test = "orderway != null and orderway =='DESC'">
+				<if test = "mark != null and mark !=''">AND #{mark} > CONCAT(faq.title, '_', faq.id) </if>
+				ORDER BY faq.title DESC
+			</if>
+			<if test = "orderway != null and orderway =='ASC'">
+				<if test = "mark != null and mark !=''">AND CONCAT(faq.title, '_', faq.id) > #{mark}</if>
+				ORDER BY faq.title ASC
+			</if>
+		</if>
+
+		LIMIT 0, #{perpage}
+	</select>
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thc.sprbasic2025.mapper.PermissionuserMapper">
+
+	<!---->
+	<select id="detail" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.PermissionuserDto$DetailResDto">
+		SELECT permissionuser.id
+			 , permissionuser.deleted
+			 , permissionuser.created_at as createdAt
+			 , permissionuser.modified_at as modifiedAt
+
+			 , permissionuser.permission_id as permissionId
+			 , permissionuser.user_id as userId
+
+			 , user.username as userUsername
+		FROM permissionuser, user
+		WHERE permissionuser.id = #{id}
+		  AND permissionuser.user_id = user.id
+	</select>
+
+	<!-- 공통 WHERE 절 -->
+	<sql id="commonWhere">
+		WHERE permissionuser.id is not NULL
+		<if test = "deleted != null">AND permissionuser.deleted = #{deleted}</if>
+		<if test="sdate != null and sdate != ''">AND permissionuser.created_at >= CONCAT(#{sdate}, ' 00:00:00')</if>
+		<if test="fdate != null and fdate != ''">AND CONCAT(#{fdate}, ' 23:59:59') >= permissionuser.created_at</if>
+		<if test = "permissionId != null and permissionId != ''">AND permissionuser.permission_id = #{permissionId}</if>
+		<if test = "userId != null and userId != ''">AND permissionuser.user_id = #{userId}</if>
+	</sql>
+
+	<select id="list" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.PermissionuserDto$DetailResDto">
+		SELECT permissionuser.id
+		FROM permissionuser
+		<include refid="commonWhere"/>
+	</select>
+
+	<select id="pagedListCount" parameterType="hashMap" resultType="Integer">
+		SELECT count(permissionuser.id) as listsize
+		FROM permissionuser
+		<include refid="commonWhere"/>
+	</select>
+	<select id="pagedList" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.PermissionuserDto$DetailResDto">
+		SELECT permissionuser.id
+		FROM permissionuser
+		<include refid="commonWhere"/>
+
+		<if test = "orderby != null and orderby =='id'">ORDER BY permissionuser.id </if>
+		<if test = "orderby != null and orderby =='title'">ORDER BY permissionuser.title </if>
+		<if test = "orderway != null and orderway =='DESC'"> DESC</if>
+		<if test = "orderway != null and orderway =='ASC'"> ASC</if>
+		LIMIT #{offset}, #{perpage}
+	</select>
+	<select id="scrollList" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.PermissionuserDto$DetailResDto">
+		SELECT permissionuser.id
+		FROM permissionuser
+		<include refid="commonWhere"/>
+
+		<if test = "orderby != null and orderby =='id'">
+			<if test = "orderway != null and orderway =='DESC'">
+				<if test = "mark != null and mark !=''">AND #{mark} > permissionuser.id </if>
+				ORDER BY permissionuser.id DESC
+			</if>
+			<if test = "orderway != null and orderway =='ASC'">
+				<if test = "mark != null and mark !=''">AND permissionuser.id > #{mark}</if>
+				ORDER BY permissionuser.id ASC
+			</if>
+		</if>
+		<if test = "orderby != null and orderby =='title'">
+			<if test = "orderway != null and orderway =='DESC'">
+				<if test = "mark != null and mark !=''">AND #{mark} > CONCAT(permissionuser.title, '_', permissionuser.id) </if>
+				ORDER BY permissionuser.title DESC
+			</if>
+			<if test = "orderway != null and orderway =='ASC'">
+				<if test = "mark != null and mark !=''">AND CONCAT(permissionuser.title, '_', permissionuser.id) > #{mark}</if>
+				ORDER BY permissionuser.title ASC
+			</if>
+		</if>
+
+		LIMIT 0, #{perpage}
+	</select>
+</mapper>

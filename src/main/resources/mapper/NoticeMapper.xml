@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thc.sprbasic2025.mapper.NoticeMapper">
+
+	<!---->
+	<select id="detail" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.NoticeDto$DetailResDto">
+		SELECT notice.id
+			 , notice.deleted
+			 , notice.created_at as createdAt
+			 , notice.modified_at as modifiedAt
+
+			 , notice.title
+			 , notice.content
+			 , notice.img
+		FROM notice
+		WHERE notice.id = #{id}
+	</select>
+
+	<!-- 공통 WHERE 절 -->
+	<sql id="commonWhere">
+		WHERE notice.id is not NULL
+		<if test = "deleted != null">AND notice.deleted = #{deleted}</if>
+		<if test="sdate != null and sdate != ''">AND notice.created_at >= CONCAT(#{sdate}, ' 00:00:00')</if>
+		<if test="fdate != null and fdate != ''">AND CONCAT(#{fdate}, ' 23:59:59') >= notice.created_at</if>
+		<if test = "title != null and title !=''">AND notice.title LIKE CONCAT('%', #{title}, '%')</if>
+	</sql>
+
+	<select id="list" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.NoticeDto$DetailResDto">
+		SELECT notice.id
+		FROM notice
+		<include refid="commonWhere"/>
+	</select>
+
+	<select id="pagedListCount" parameterType="hashMap" resultType="Integer">
+		SELECT count(notice.id) as listsize
+		FROM notice
+		<include refid="commonWhere"/>
+	</select>
+	<select id="pagedList" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.NoticeDto$DetailResDto">
+		SELECT notice.id
+		FROM notice
+		<include refid="commonWhere"/>
+
+		<if test = "orderby != null and orderby =='id'">ORDER BY notice.id </if>
+		<if test = "orderby != null and orderby =='title'">ORDER BY notice.title </if>
+		<if test = "orderway != null and orderway =='DESC'"> DESC</if>
+		<if test = "orderway != null and orderway =='ASC'"> ASC</if>
+		LIMIT #{offset}, #{perpage}
+	</select>
+	<select id="scrollList" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.NoticeDto$DetailResDto">
+		SELECT notice.id
+		FROM notice
+		<include refid="commonWhere"/>
+
+		<if test = "orderby != null and orderby =='id'">
+			<if test = "orderway != null and orderway =='DESC'">
+				<if test = "cursor != null and cursor !=''">AND #{cursor} > notice.id </if>
+				ORDER BY notice.id DESC
+			</if>
+			<if test = "orderway != null and orderway =='ASC'">
+				<if test = "cursor != null and cursor !=''">AND notice.id > #{cursor}</if>
+				ORDER BY notice.id ASC
+			</if>
+		</if>
+		<if test = "orderby != null and orderby =='title'">
+			<if test = "orderway != null and orderway =='DESC'">
+				<if test = "mark != null and mark !=''">AND #{mark} > CONCAT(notice.title, '_', notice.id) </if>
+				ORDER BY notice.title DESC
+			</if>
+			<if test = "orderway != null and orderway =='ASC'">
+				<if test = "mark != null and mark !=''">AND CONCAT(notice.title, '_', notice.id) > #{mark}</if>
+				ORDER BY notice.title ASC
+			</if>
+		</if>
+
+		LIMIT 0, #{perpage}
+	</select>
+</mapper>

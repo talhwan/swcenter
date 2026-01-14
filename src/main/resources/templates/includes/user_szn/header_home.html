@@ -1,0 +1,191 @@
+<script id="list_info_popup" type="text/x-handlebars-template">
+    {{#resultData_popup}}
+    <div class="swiper-slide" onclick="listener_app_out_url('{{url}}');">
+        <img class="rounded-xl" src="{{img}}" alt="슬라이드"/>
+    </div>
+    {{/resultData_popup}}
+</script>
+<script type="text/javascript">
+    var list_info_popup = $("#list_info_popup").html();
+    var list_info_popup_template = Handlebars.compile(list_info_popup);
+</script>
+
+<!-- Header -->
+<div class="div_soft-gray-blue">
+    <div class="div_left_soft-gray-blue px-4 py-2 rounded-b-2xl">
+        <!-- 공간-->
+        <div class="flex pt-1">
+            <div class="w-16 mx-auto text-center">
+                <div class="w-14 h-14 rounded-full border-2 border-white overflow-hidden shadow-md">
+                    <img src="https://placehold.co/100x100" alt="profile" class="w-full h-full object-cover" id="img_myuser_img">
+                </div>
+                <div class="w-10 mx-auto">
+                    <!-- LV 배지 -->
+                    <span class="w-10 h-4 span_lv_bedge rounded-xl text-white px-2"><span style="font-size:12px;margin-top:-1px;">8</span><span style="font-size:8px;margin-top:3px;">LV</span></span>
+                    <div class="lv_bar-wrap">
+                        <div class="lv_bar-fill" style="width: 60%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full flex">
+                <div class="px-2 flex flex-col justify-between h-80">
+                    <div class="text-sm"><span class="font_myuser_nick">-</span></div>
+                    <div class="w-20 rounded-lg mt-1 py-1 px-2 bg-gray-200 flex text-xs">⭐ <div class="mx-1 w-full justify-end text-right"><span class="font_myuser_amountcticket_comma">-</span></div></div>
+                    <div class="rounded-lg mt-1 py-1 px-2 bg-gray-200 flex text-xs">🪙 <div class="mx-1 w-full justify-end text-right"><span class="font_myuser_amountcpoint_comma">-</span></div></div>
+                </div>
+                <div class="w-full text-sm pt-2" style="display: grid;align-items: end;">
+                    <div class="w-full flex">
+                        <div class="w-full pr-1"><div class="rounded-lg mt-1 py-2 bg-gray-200 flex w-full justify-center">🏆<span class="px-1">1등 7회</span></div></div>
+                        <div class="w-full pl-1"><div class="rounded-lg mt-1 py-2 bg-gray-200 flex w-full justify-center">❤<span class="px-1">행운 7회</span></div></div>
+                    </div>
+                    <div class="w-full flex text-xs">
+                        <div class="w-2/3 pr-1"><div class="rounded-lg mt-1 py-1 bg-gray-200 text-white flex w-full justify-center btn_quizlist" onclick="listener_href('/qtoon/list', 'true')">내 웹툰 퀴즈</div></div>
+                        <div class="w-1/3 pl-1"><div class="rounded-lg mt-1 py-1 bg-gray-200 flex w-full justify-center cursor-pointer" onclick="listener_href('/calarm/list', 'true')">🔔 알림</div></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="frame p-3 div_swiper_popup_list hidden">
+        <div class="relative">
+            <span class="swiper_span_badge"><span id="span_badge_now">-</span>/<span id="span_badge_total">-</span></span>
+            <!-- Swiper 컨테이너 -->
+            <div class="swiper">
+                <div class="swiper-wrapper" id="tbody_popup_list">
+                    <!--
+                    <div class="swiper-slide">
+                        <img class="rounded-xl" src="https://placehold.co/520x520/9C27B0/FFFFFF?text=Slide+2" alt="슬라이드 2"/>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css">
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+        let main_popup_swiper = null;
+        function updateBadge(){
+            const realIndex = main_popup_swiper.realIndex + 1; // loop 고려 실제 인덱스
+            const total = main_popup_swiper.slides.length - main_popup_swiper.loopedSlides * 2; // 루프용 복제 제외
+            $("#span_badge_now").text(`${realIndex}`);
+        }
+        function listener_main_popup_start(){
+            main_popup_swiper = new Swiper('.swiper', {
+                slidesPerView: 1,
+                spaceBetween: 12,
+                loop: true, // 반복 순환
+                // autoplay: { delay: 3000, disableOnInteraction: false }, // 자동 전환 원하면 주석 해제
+                pagination: { el: '.swiper-pagination', clickable: true }, // touch 스와이프는 기본 활성화됨
+            });
+            main_popup_swiper.on('slideChange', updateBadge);
+            updateBadge();
+        }
+    </script>
+</div>
+
+<script>
+    $(document).ready(function () {
+        console.log("ready!");
+        let refreshToken = localStorage.getItem("refreshToken");
+        if (!isNull(refreshToken)) {
+            detail_user();
+        }
+        search_popup();
+    });
+
+    function detail_user() {
+        let userId = 0;
+        let _data = new Map();
+        _data.url = "/api/user";
+        _data.type = "GET";
+        _data.param = {'id': userId};
+        _data.success = function (obj_data, obj_status, obj_xhr) {
+            //alert(JSON.stringify(obj_data));
+            obj_data["amountcpoint_comma"] = numberWithCommas(obj_data["amountcpoint"]);
+            obj_data["amountcticket_comma"] = numberWithCommas(obj_data["amountcticket"]);
+            obj_data["countquizuser_comma"] = numberWithCommas(obj_data["countquizuser"]);
+            listenerAfterDetail(obj_data, "myuser");
+
+            /*
+            let birthyear = obj_data["birthyear"];
+            let gender = obj_data["gender"];
+            let region = obj_data["region"];
+            if(isNull(birthyear) || isNull(gender) || isNull(region)){
+                alert("프로필을 먼저 입력해주세요");
+                location.replace("/user/profile");
+            }
+            */
+
+            let temp_href = document.location.href;
+            if (temp_href.includes("/home")) {
+                //alert("this is home!");
+                /*document.location.href = "/homepage/index";*/
+                flutter_getFCMToken();
+                flutter_getLocalStorage("refreshToken");
+            }
+
+        }
+        _data.error = function (obj_data, obj_status, obj_xhr) {
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+
+    function random_todayquest(obj_ad_type) {
+
+        if (!listener_href(null, "true")) {
+            return false;
+        }
+
+        let _data = new Map();
+        _data.url = "/api/quest/random";
+        _data.type = "GET";
+        _data.param = {
+            ad_type: obj_ad_type
+        };
+        _data.success = function (obj_data, obj_status, obj_xhr) {
+            //alert(JSON.stringify(obj_data));
+            if (isNull(obj_data["link"])) {
+                alert("모든 리워드 광고를 소진하셨습니다.");
+            } else {
+                listener_app_out_url(obj_data["link"]);
+            }
+        }
+        _data.error = function (obj_data, obj_status, obj_xhr) {
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+
+    function search_popup() {
+        let _data = new Map();
+        _data.url = "/api/popup/list";
+        _data.type = "GET";
+        _data.param = {
+            deleted: false
+        };
+        _data.success = function (obj_data, obj_status, obj_xhr) {
+            let tempList = obj_data;
+            if(tempList.length > 0){
+                $("#span_badge_total").text(tempList.length);
+                $(".div_swiper_popup_list").removeClass("hidden");
+                $("#tbody_popup_list").html("");
+                for (let each of tempList) {
+                    let tList = [];
+                    tList.push(each);
+                    $("#tbody_popup_list").append(list_info_popup_template({"resultData_popup": tList}));
+                }
+                listener_main_popup_start();
+            }
+        }
+        _data.error = function (obj_data, obj_status, obj_xhr) {
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+</script>

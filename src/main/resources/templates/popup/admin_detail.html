@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<th:block th:replace="~{includes/admin/head}" />
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <th:block th:replace="~{includes/admin/sidebar}" />
+    <script>
+        $(".nav_popup_a").removeClass("collapsed");
+        $(".nav_popup_div").addClass("show");
+    </script>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <th:block th:replace="~{includes/admin/topbar}" />
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">팝업 : <span class="font_popup_title">-</span> </h1>
+                <p class="mb-4">팝업 상세 입니다.</p>
+
+                <div class="mb-4">
+                    <div class="form-group row">
+                        <input type="hidden" id="detail_popup_id" />
+
+                        <label class="col-sm-2 col-form-label">*삭제여부</label>
+                        <div class="col-sm-4">
+                            <select class="input_param input_required form-control mb-2" id="detail_popup_deleted" name="deleted" onchange="update_popup(this)">
+                                <option value="" selected="selected">전체</option>
+                                <option value="false">일반</option>
+                                <option value="true">삭제</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-6"></label>
+
+                        <label class="col-sm-2 col-form-label">*제목</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="input_param input_required form-control mb-2" id="detail_popup_title" name="title" placeholder="제목을 입력해주세요!" onchange="update_popup(this)" />
+                        </div>
+                        <label class="col-sm-2 col-form-label">*URL</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="input_param input_required form-control mb-2" id="detail_popup_url" name="url" placeholder="제목을 입력해주세요!" onchange="update_popup(this)" />
+                        </div>
+                        <!--<label class="col-sm-6"></label>-->
+
+                        <label class="col-sm-2 col-form-label">내용</label>
+                        <div class="col-sm-10">
+                            <textarea class="input_param form-control mb-2" id="detail_popup_content" name="content" placeholder="내용을 입력해주세요!" onchange="update_popup(this)" ></textarea>
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">메인 사진</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="input_param form-control mb-2" id="detail_popup_img" name="img" placeholder="제목을 입력해주세요!" onchange="update_popup(this)" />
+                            <input type="file" class="form-control mb-2" id="popup_img" accept="image/*" placeholder="내용을 입력해주세요!" onchange="listenerSetImage(this, listener_upload_img)"/>
+                            <img class="hide" id="img_popup_img" style="height: 75px;" alt="메인 사진" />
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <th:block th:replace="~{includes/admin/footer}" />
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<th:block th:replace="~{includes/admin/bottom}" />
+
+<script>
+    $(document).ready(function () {
+        console.log("ready!");
+        detail_popup();
+    });
+    function listener_upload_img() {
+        // 파일 담기
+        let tempFile = null;
+        let inputFile = document.getElementById('popup_img');
+        if (inputFile.files.length > 0) {
+            tempFile = inputFile.files[0];
+        }
+        let fileData = new FormData();
+        fileData.append("file", tempFile);
+        $.ajax({
+            url: "/api/default/uploadFile",
+            type: "POST",
+            data: fileData ,
+            cache : false,
+            contentType : false,
+            processData : false,
+            success: (data, status, xhr)=>{
+                $("#detail_popup_img").val("/image/" + data);
+                update_popup("#detail_popup_img");
+            },
+            error: (data)=>{
+                alert("error")
+            },
+        });
+
+    }
+    function update_popup(obj_this){
+        let _param = {
+            id : getIdFromUrl(null)
+        };
+        _param[$(obj_this).attr("name")] = $(obj_this).val();
+        let _data = {};
+        _data.url = "/api/popup";
+        _data.type = "PUT";
+        _data.param = _param;
+        _data.success = function(obj_data, obj_status, obj_xhr){
+        }
+        _data.error = function(obj_data, obj_status, obj_xhr){
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+    function detail_popup() {
+        let popupId = getIdFromUrl(null);
+        let _data = new Map();
+        _data.url = "/api/popup";
+        _data.type = "GET";
+        _data.param = {'id': popupId};
+        _data.success = function (obj_data, obj_status, obj_xhr) {
+            //alert(JSON.stringify(obj_data));
+            listenerAfterDetail(obj_data, "popup");
+        }
+        _data.error = function (obj_data, obj_status, obj_xhr) {
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+</script>
+
+
+</body>
+
+</html>

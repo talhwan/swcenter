@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<th:block th:replace="~{includes/admin/head}" />
+
+<script id="list_info_gbrand" type="text/x-handlebars-template">
+    {{#resultData_gbrand}}
+    <tr class="gradeA">
+        <td>
+            <input class="input_chk_delete_gbrand_each" type="checkbox" keyword="{{id}}" id="input_chk_delete_gbrand_each_{{id}}" onclick="listener_chk_delete(this, 'gbrand')" />
+        </td>
+        <td><font class="font_gbrand_order"></font></td>
+        <td><font class="font_gbrand_deleted_{{deleted}} chk_gbrand_deleted_{{id}}">{{deleted}}</font></td>
+        <td class="cursor_pointer" onclick="location.href='/gbrand/admin_detail/{{id}}';">{{gbrandname}}</td>
+        <td class="cursor_pointer" onclick="location.href='/gbrand/admin_detail/{{id}}';">{{name}}</td>
+        <td>{{createdAt}} / {{modifiedAt}}
+            <div class="hide">
+                <input class="input_cursor_gbrand_id" value="{{id}}"/>
+                <input class="input_cursor_gbrand_title" value="{{id}}"/>
+                <input class="input_cursor_gbrand_countgift" value="{{id}}"/>
+            </div>
+        </td>
+    </tr>
+    {{/resultData_gbrand}}
+</script>
+<script type="text/javascript">
+    var list_info_gbrand = $("#list_info_gbrand").html();
+    var list_info_gbrand_template = Handlebars.compile(list_info_gbrand);
+</script>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <th:block th:replace="~{includes/admin/sidebar}" />
+    <script>
+        $(".nav_permission_a").removeClass("collapsed");
+        $(".nav_permission_div").addClass("show");
+    </script>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <th:block th:replace="~{includes/admin/topbar}" />
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">사용자 목록</h1>
+                <p class="mb-4">전체 목록 조회입니다.</p>
+
+                <div class="mb-4">
+                    <input type="hidden" id="input_gbrand_keyword_changed" value="0" />
+                    <input type="hidden" id="search_gbrand_callpage" value="" />
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">삭제여부</label>
+                        <div class="col-sm-4">
+                            <select class="select_search_gbrand_keyword form-control mb-2" name="deleted" id="search_gbrand_deleted" onchange="listener_gbrand_keyword_changed()">
+                                <option value="" selected="selected">전체</option>
+                                <option value="false">일반</option>
+                                <option value="true">삭제</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-6 col-form-label"></label>
+
+                        <label class="col-sm-2 col-form-label">등록 시기</label>
+                        <div class="col-sm-3">
+                            <input class="form-control mb-2" id="search_gbrand_sdate" type="date" onchange="listener_gbrand_keyword_changed()"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <input class="form-control mb-2" id="search_gbrand_fdate" type="date" onchange="listener_gbrand_keyword_changed()"/>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-sm btn-outline-secondary" onclick="set_search_sdatefdate('null', 'gbrand', listener_gbrand_keyword_changed); return false;">초기화</button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="set_search_sdatefdate('today', 'gbrand', listener_gbrand_keyword_changed); return false;">오늘</button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="set_search_sdatefdate('week', 'gbrand', listener_gbrand_keyword_changed); return false;">1주</button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="set_search_sdatefdate('month', 'gbrand', listener_gbrand_keyword_changed); return false;">1개월</button>
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">키워드</label>
+                        <div class="col-sm-4">
+                            <select class="form-control mb-2" id="search_gbrand_keyword" onchange="set_search_keyword('gbrand')">
+                                <option value="10" selected="selected">이름</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <input id="search_gbrand_title" onchange="listener_gbrand_keyword_changed();"
+                                   class="form-control search_gbrand_keyword_each search_gbrand_keyword_each_10 mb-2" type="text" placeholder="내용을 입력하세요"/>
+                        </div>
+
+                        <input type="hidden" id="cursor_gbrand" />
+                        <label class="col-sm-2 col-form-label">검색 기준</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" id="search_gbrand_orderby" onchange="listener_gbrand_keyword_changed();">
+                                <option value="id" selected="selected">등록순</option>
+                                <option value="name">이름순</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-2 col-form-label">한번에 불러올 갯수</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" id="search_gbrand_perpage" onchange="listener_gbrand_keyword_changed();">
+                                <option value="10" selected="selected">10</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-2 col-form-label">조회방향</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" id="search_gbrand_orderway" onchange="listener_gbrand_keyword_changed();">
+                                <option value="DESC" selected="selected">역방향</option>
+                                <option value="ASC">정방향</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-100">
+                    <button class="btn btn-primary mb-2" onclick="location.href='/gbrand/admin_create'; return false;">생성하기</button>
+                    <span style="float: right">총 <span class="font_gbrand_total_itemcount">-</span>개</span>
+                </div>
+                <!-- DataTales Example -->
+                <div class="table-responsive">
+                    <table class="table table-bordered bg-white" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th>
+                                <input class="input_chk_delete_gbrand_all" type="checkbox" keyword="all" id="input_chk_delete_gbrand_all" onclick="listener_chk_delete(this, 'gbrand')" />
+                            </th>
+                            <th>#</th>
+                            <th>삭제여부</th>
+                            <th>아이디</th>
+                            <th>이름</th>
+                            <th>입력일시/수정일시</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody_gbrand_list">
+                        </tbody>
+                    </table>
+                    <div class="w-100 m-auto">
+                        <button class="btn btn-danger" onclick="delete_gbrand(); return false;">삭제</button>
+                        <ul class="pagination" style="float: right" id="ul_gbrand_pagination">
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <th:block th:replace="~{includes/admin/footer}" />
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<th:block th:replace="~{includes/admin/bottom}" />
+
+<script>
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        search_gbrand();
+    });
+</script>
+
+<script>
+    function listener_gbrand_keyword_changed(){
+        $("#input_gbrand_keyword_changed").val("1");
+        search_gbrand();
+    }
+    function listener_gbrand_callpage(obj_num){
+        $("#search_gbrand_callpage").val(obj_num);
+        search_gbrand();
+    }
+    function search_gbrand() {
+        let search_gbrand_deleted = null;
+        if($("#search_gbrand_deleted").val() !== ""){
+            search_gbrand_deleted = ($("#search_gbrand_deleted").val() === "true");
+        }
+
+        let _data = new Map();
+        _data.url = "/api/gbrand/pagedList";
+        _data.type = "GET";
+        _data.param = {
+            perpage : $("#search_gbrand_perpage").val()
+            , callpage : $("#search_gbrand_callpage").val()
+            , orderby : $("#search_gbrand_orderby").val()
+            , orderway : $("#search_gbrand_orderway").val()
+
+            , sdate : $("#search_gbrand_sdate").val()
+            , fdate : $("#search_gbrand_fdate").val()
+
+            , deleted : search_gbrand_deleted
+            , name : $("#search_gbrand_title").val()
+        };
+        _data.success = function(obj_data, obj_status, obj_xhr){
+            $("#tbody_gbrand_list").html("");
+            $("#ul_gbrand_pagination").html("");
+            let tempList = obj_data["list"];
+            for(let each of tempList){
+                let tList = [];
+                tList.push(each);
+                $("#tbody_gbrand_list").append(list_info_gbrand_template({"resultData_gbrand":tList}));
+            }
+            listenerAfterPagedList(obj_data, "gbrand");
+        }
+        _data.error = function(obj_data, obj_status, obj_xhr){
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+    function delete_gbrand(){
+        if (confirm("정말 삭제하시겠습니까?")) {
+        } else {
+            alert("취소");
+            return false;
+        }
+        let ids = listenerGetDeleteIds('gbrand');
+        let _data = new Map();
+        _data.url = "/api/gbrand/list";
+        _data.type = "DELETE";
+        _data.param = {
+            'ids' : ids
+        };
+        _data.success = function(obj_data, obj_status, obj_xhr){
+            search_gbrand();
+        }
+        _data.error = function(obj_data, obj_status, obj_xhr){
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+</script>
+
+</body>
+
+</html>

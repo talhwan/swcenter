@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thc.sprbasic2025.mapper.PopupMapper">
+
+	<!---->
+	<select id="detail" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.PopupDto$DetailResDto">
+		SELECT popup.id
+			 , popup.deleted
+			 , popup.created_at as createdAt
+			 , popup.modified_at as modifiedAt
+
+			 , popup.sequence
+			 , popup.title
+			 , popup.content
+			 , popup.url
+			 , popup.img
+		FROM popup
+		WHERE popup.id = #{id}
+	</select>
+
+	<!-- 공통 WHERE 절 -->
+	<sql id="commonWhere">
+		WHERE popup.id is not NULL
+		<if test = "deleted != null">AND popup.deleted = #{deleted}</if>
+		<if test="sdate != null and sdate != ''">AND popup.created_at >= CONCAT(#{sdate}, ' 00:00:00')</if>
+		<if test="fdate != null and fdate != ''">AND CONCAT(#{fdate}, ' 23:59:59') >= popup.created_at</if>
+		<if test = "title != null and title !=''">AND popup.title LIKE CONCAT('%', #{title}, '%')</if>
+	</sql>
+
+	<select id="list" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.PopupDto$DetailResDto">
+		SELECT popup.id
+		FROM popup
+		<include refid="commonWhere"/>
+		ORDER BY popup.sequence ASC
+	</select>
+
+	<select id="pagedListCount" parameterType="hashMap" resultType="Integer">
+		SELECT count(popup.id) as listsize
+		FROM popup
+		<include refid="commonWhere"/>
+	</select>
+	<select id="pagedList" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.PopupDto$DetailResDto">
+		SELECT popup.id
+		FROM popup
+		<include refid="commonWhere"/>
+
+		<if test = "orderby != null and orderby =='id'">ORDER BY popup.id </if>
+		<if test = "orderby != null and orderby =='title'">ORDER BY popup.title </if>
+		<if test = "orderway != null and orderway =='DESC'"> DESC</if>
+		<if test = "orderway != null and orderway =='ASC'"> ASC</if>
+		LIMIT #{offset}, #{perpage}
+	</select>
+	<select id="scrollList" parameterType="hashMap" resultType="com.thc.sprbasic2025.dto.PopupDto$DetailResDto">
+		SELECT popup.id
+		FROM popup
+		<include refid="commonWhere"/>
+
+		<if test = "orderby != null and orderby =='id'">
+			<if test = "orderway != null and orderway =='DESC'">
+				<if test = "cursor != null and cursor !=''">AND #{cursor} > popup.id </if>
+				ORDER BY popup.id DESC
+			</if>
+			<if test = "orderway != null and orderway =='ASC'">
+				<if test = "cursor != null and cursor !=''">AND popup.id > #{cursor}</if>
+				ORDER BY popup.id ASC
+			</if>
+		</if>
+		<if test = "orderby != null and orderby =='title'">
+			<if test = "orderway != null and orderway =='DESC'">
+				<if test = "mark != null and mark !=''">AND #{mark} > CONCAT(popup.title, '_', popup.id) </if>
+				ORDER BY popup.title DESC
+			</if>
+			<if test = "orderway != null and orderway =='ASC'">
+				<if test = "mark != null and mark !=''">AND CONCAT(popup.title, '_', popup.id) > #{mark}</if>
+				ORDER BY popup.title ASC
+			</if>
+		</if>
+
+		LIMIT 0, #{perpage}
+	</select>
+</mapper>

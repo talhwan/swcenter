@@ -1,0 +1,60 @@
+debug: false
+management.endpoints.web.exposure.include: "*"
+
+logging:
+  level:
+    com.thc.winterspr: debug
+    org.springframework.web.servlet: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+spring:
+  config:
+    import:
+      - classpath:/yaml/application-keys.yaml
+  #
+  jpa:
+    defer-datasource-initialization: true
+    hibernate.ddl-auto: update
+    #hibernate.ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+      hibernate.default_batch_fetch_size: 100
+      hibernate.jdbc.time_zone: Asia/Seoul
+  thymeleaf:
+    cache: false
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+    remote:
+      restart:
+        enabled: false
+  freemarker:
+    cache: false
+  sql.init.mode: always
+  #sql.init.mode: never
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+springdoc:
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+
+external:
+  jwt:
+    tokenSecretKey: cfc6f8968e16e357e2a588674174bc2ca34b538e9f759d081d48721fd0aa1f626188fca140ca58a5b88d6e98b3302c52f49f7fa1dc06924c34ecd45b31ba675e
+    tokenPrefix: Bearer/u0020
+    accessKey: Authorization
+    accessTokenExpirationTime: 180000
+    refreshKey: RefreshToken
+    refreshTokenExpirationTime: 1209600000
+    # ????? ??? ??????? ???? refreshTokenExpirationDate: 120
+    # 1000 * 60 * 60 * 24 * 7 = 604800000 1?
+    # 1000 * 60 * 60 * 24 * 7 * 4 = 1209600000 2?
+    # 1000 * 60 * 30 = 1800000 30?
