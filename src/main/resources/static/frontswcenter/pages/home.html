@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한동대학교 SW중심대학</title>
+
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/footer.css">
+
+    <script src="../js/carousel.js" defer></script>
+</head>
+
+<body>
+
+    <!-- header -->
+    <header class="header">
+        <div class="topbar">
+            <div class="topbar__inner">
+                <nav class="topbar__nav">
+                    <a href="home.html">HOME</a>
+                    <span class="divider">|</span>
+                    <a href="https://handong.edu/">한동대학교</a>
+                </nav>
+            </div>
+        </div>
+
+        <div class="header__inner">
+            <div class="header__left">
+                <a href="home.html" class="header__logo-link">
+                <img src="../img/logo.svg" alt="한동대 로고" class="header__logo">
+                <span class="header__title">한동대학교 SW중심대학사업단</span>
+                </a>
+            </div>
+
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <nav class="header__nav">
+                <ul class="main-menu">
+                    <li>
+                        <a href="introduction/mission.html" class="main-link">사업단 소개</a>
+                        <div class="mega-dropdown">
+                            <div class="menu-column">
+                                <a href="introduction/mission.html">사업단 목표</a>
+                                <a href="introduction/organization.html">조직도</a>
+                                <a href="introduction/business_support.html">기업 지원 센터</a>
+                                <a href="introduction/location.html">오시는길</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="value-spread/support_project.html" class="main-link">SW가치확산</a>
+                        <div class="mega-dropdown">
+                            <div class="menu-column">
+                                <a href="value-spread/support_project.html">지원 프로젝트</a>
+                                <a href="value-spread/operation_status.html">운영 현황</a>
+                                <a href="value-spread/sw_education.html">SW교육</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="news/notice.html" class="main-link">알림/소식</a>
+                        <div class="mega-dropdown">
+                            <div class="menu-column">
+                                <a href="news/notice.html">공지사항</a>
+                                <a href="news/news_letter.html">뉴스레터</a>
+                                <a href="news/extracurricular_activities.html">대외활동</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="board/general_board.html" class="main-link">게시판</a>
+                        <div class="mega-dropdown">
+                            <div class="menu-column">
+                                <a href="board/general_board.html">일반 게시판</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-layout">
+        <main class="content-area">
+
+            <!-- carousel -->
+            <div class="carousel_wrapper">
+                <!-- imgs -->
+                <div class="carousel">
+                    <img src="../img/carousel/carousel_1.png" alt="carousel_1" class="carousel_img" />
+                    <img src="../img/carousel/carousel_2.png" alt="carousel_2" class="carousel_img" />
+                    <img src="../img/carousel/carousel_3.png" alt="carousel_3" class="carousel_img" />
+                    <img src="../img/carousel/carousel_4.png" alt="carousel_4" class="carousel_img" />
+                </div>
+
+                <!-- prev, next btn -->
+                <img src="../img/carousel/prev_btn.png" alt="prev_btn" class="prev_btn" />
+                <img src="../img/carousel/next_btn.png" alt="next_btn" class="next_btn" />
+
+                <!-- dots -->
+                <div class="dots">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+
+
+            <!-- menu -->
+            <div class="menu-wrapper">
+                <div class="menu-list">
+                    <a href="introduction/mission.html" class="menu-card">
+                        <img src="../img/menu/menu_1.png" alt="사업단 소개" class="menu-card-icon">
+                        <p class="menu-card-title">사업단 소개</p>
+                    </a>
+
+                    <a href="value-spread/sw_education.html" class="menu-card">
+                        <img src="../img/menu/menu_2.png" alt="SW전공교육" class="menu-card-icon">
+                        <p class="menu-card-title">SW전공교육</p>
+                    </a>
+
+                    <a href="value-spread/sw_education.html" class="menu-card">
+                        <img src="../img/menu/menu_3.png" alt="SW융합교육" class="menu-card-icon">
+                        <p class="menu-card-title">SW융합교육</p>
+                    </a>
+
+                    <a href="value-spread/support_project.html" class="menu-card">
+                        <img src="../img/menu/menu_4.png" alt="SW가치확산" class="menu-card-icon">
+                        <p class="menu-card-title">SW가치확산</p>
+                    </a>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-left">
+                <img src="../img/footer_logo.png" alt="한동대학교 로고" class="footer-logo" />
+                <p>
+                    37554 경북 포항시 북구 흥해읍 한동로 558<br>
+                    한동대학교 뉴턴홀 218호 소프트웨어중심대학사업단
+                </p>
+            </div>
+
+            <div class="footer-right">
+                <div class="contact">
+                    <h4>Contact Us</h4>
+                    <p>
+                        <span class="label">Phone</span>
+                        <span class="bar">|</span>
+                        <span class="value">054-260-1478</span>
+                    </p>
+                    <p>
+                        <span class="label">Fax</span>
+                        <span class="bar">|</span>
+                        <span class="value">054-260-1976</span>
+                    </p>
+                    <p>
+                        <span class="label">Email</span>
+                        <span class="bar">|</span>
+                        <span class="value">csee@handong.edu</span>
+                    </p>
+                </div>
+
+                <div class="follow">
+                    <h4>Follow Us</h4>
+                    <div class="footer-icons">
+                        <a href="https://www.facebook.com/hguswplus/?locale=ko_KR"><img src="../img/facebook_icon.png" alt="facebook"></a>
+                        <a href="https://www.youtube.com/@sw371"><img src="../img/youtube_icon.png" alt="youtube"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            Copyright © Handong Global University. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('.header__nav');
+            nav.classList.toggle('active');
+        }
+    </script>
+
+</body>
+
+</html>

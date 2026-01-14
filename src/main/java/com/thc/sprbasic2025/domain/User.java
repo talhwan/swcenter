@@ -29,21 +29,9 @@ public class User extends AuditingFields{
 
     Integer rfrom; // 1000 수동 가입, 2100 전화번호, 3100구글 3200애플 3300카카오 3400네이버 3500깃허브
     String fcm;
-    Integer amountcpoint;
-    Integer amountcticket;
-    Integer countquizuser;
-    Integer countqstockuser;
-    Integer counttoonuser;
-    Integer countqtoonuser;
-
-    Boolean updatecpoint;
-
-    Boolean allowalarm;
-    Boolean alarmquizresult;
-    Boolean alarmquiztoday;
 
     protected User(){}
-    private User(Boolean deleted, String username, String password, String code, String name, String nick, String phone, Integer birthyear, String gender, String region, String img, Integer rfrom, String fcm, Integer amountcpoint, Integer amountcticket, Integer countquizuser, Integer countqstockuser, Integer counttoonuser, Integer countqtoonuser, Boolean updatecpoint, Boolean allowalarm, Boolean alarmquizresult, Boolean alarmquiztoday){
+    private User(Boolean deleted, String username, String password, String code, String name, String nick, String phone, Integer birthyear, String gender, String region, String img, Integer rfrom, String fcm){
         this.deleted = deleted;
         this.username = username;
         this.password = password;
@@ -58,20 +46,9 @@ public class User extends AuditingFields{
 
         this.rfrom = rfrom;
         this.fcm = fcm;
-        this.amountcpoint = amountcpoint;
-        this.amountcticket = amountcticket;
-        this.countquizuser = countquizuser;
-        this.countqstockuser = countqstockuser;
-        this.counttoonuser = counttoonuser;
-        this.countqtoonuser = countqtoonuser;
-
-        this.updatecpoint = updatecpoint;
-        this.allowalarm = allowalarm;
-        this.alarmquizresult = alarmquizresult;
-        this.alarmquiztoday = alarmquiztoday;
     }
     public static User of(String username, String password, String code, String name, String nick, String phone, Integer birthyear, String gender, String region, String img, Integer rfrom){
-        return new User(false, username, password, code, name, nick, phone, birthyear, gender, region, img, rfrom, null, 0, 0, 0, 0, 0, 0, false, true, true, true);
+        return new User(false, username, password, code, name, nick, phone, birthyear, gender, region, img, rfrom, null);
     }
     public DefaultDto.CreateResDto toCreateResDto() {
         return DefaultDto.CreateResDto.builder().id(getId()).build();
@@ -89,9 +66,5 @@ public class User extends AuditingFields{
         if(param.getRegion() != null){ setRegion(param.getRegion()); }
         if(param.getImg() != null){ setImg(param.getImg()); }
         if(param.getFcm() != null){ setFcm(param.getFcm()); }
-
-        if(param.getAllowalarm() != null){ setAllowalarm(param.getAllowalarm()); }
-        if(param.getAlarmquizresult() != null){ setAlarmquizresult(param.getAlarmquizresult()); }
-        if(param.getAlarmquiztoday() != null){ setAlarmquiztoday(param.getAlarmquiztoday()); }
     }
 }

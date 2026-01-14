@@ -18,17 +18,6 @@
 			 , user.region
 			 , user.rfrom
 			 , user.fcm
-
-			 , user.amountcpoint
-			 , user.amountcticket
-			 , user.countquizuser
-             , user.counttoonuser
-             , user.countqtoonuser
-
-             , user.updatecpoint
-			 , user.allowalarm
-			 , user.alarmquizresult
-			 , user.alarmquiztoday
 		FROM user
 		WHERE user.id = #{id}
 	</select>

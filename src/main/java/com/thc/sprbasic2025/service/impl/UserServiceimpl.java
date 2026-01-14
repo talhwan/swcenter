@@ -133,18 +133,6 @@ public class UserServiceimpl implements UserService {
     @Override
     public List<UserDto.DetailResDto> scrollList(UserDto.ScrollListReqDto param, Long reqUserId) {
         param.init();
-
-        if("amountcpoint".equals(param.getOrderby())){
-            String mark = param.getMark();
-            if(mark != null && !mark.isEmpty()){
-                UserDto.DetailResDto user = userMapper.detail(Long.parseLong(mark));
-                if(user != null){
-                    mark = user.getAmountcpoint() + "_" + user.getId();
-                    param.setMark(mark);
-                }
-            }
-        }
-
         return detailList(userMapper.scrollList(param), reqUserId);
     }
 

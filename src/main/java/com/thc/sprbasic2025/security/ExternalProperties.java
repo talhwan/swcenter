@@ -26,20 +26,4 @@ public class ExternalProperties {
 	@Value("${external.jwt.refreshTokenExpirationTime}")
 	private Integer refreshTokenExpirationTime;
 
-	@Value("${github.base-url}")
-	private String githubBaseUrl;
-	@Value("${github.client-id}")
-	private String githubClientId;
-	@Value("${github.client-secret}")
-	private String githubClientSecret;
-
-    @Value("${giftishow.user_id}")
-	private String gUserId;
-    @Value("${giftishow.custom_auth_code}")
-	private String customAuthCode;
-    @Value("${giftishow.custom_auth_token}")
-	private String customAuthToken;
-    @Value("${giftishow.dev_yn}")
-	private String devYn;
-
 }

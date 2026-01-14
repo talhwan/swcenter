@@ -1,0 +1,126 @@
+.page-layout {
+    display: flex;
+    max-width: 1320px;
+    margin: 40px auto;
+}
+
+.content-area {
+    flex: 1;
+    padding: 40px 50px;
+}
+
+.page-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #09316b;
+    margin-bottom: 25px;
+}
+
+.content-box {
+    background: #f9fafc;
+    padding: 30px;
+    border-radius: 6px;
+    border: 1px solid #e0e6ef;
+}
+
+.aside-nav {
+    width: 150px;
+    background-color: #fff;
+    padding: 20px 100px;
+    font-family: "Pretendard", sans-serif;
+    height: 100%;
+}
+
+.aside-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.aside-nav li {
+    margin: 0;
+}
+
+.aside-nav a {
+    display: block;
+    padding: 14px 24px;
+    font-size: 16px;
+    color: #000;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.aside-nav a:hover {
+    background-color: #e8eef7;
+    color: #09316b;
+}
+
+/* Active page highlight */
+.aside-nav a.active {
+    background-color: #09316b;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* ===== 반응형 (태블릿) ===== */
+@media (max-width: 1024px) {
+    .page-layout {
+        margin: 30px auto;
+        padding: 0 20px;
+    }
+
+    .aside-nav {
+        padding: 20px 40px;
+    }
+
+    .content-area {
+        padding: 30px;
+    }
+}
+
+/* ===== 반응형 (모바일) ===== */
+@media (max-width: 768px) {
+    .page-layout {
+        flex-direction: column;
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    .aside-nav {
+        width: 100%;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    .aside-nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .aside-nav li {
+        flex: 1;
+        min-width: fit-content;
+    }
+
+    .aside-nav a {
+        padding: 10px 16px;
+        font-size: 14px;
+        text-align: center;
+        border: 1px solid #e0e6ef;
+        border-radius: 4px;
+    }
+
+    .content-area {
+        padding: 20px 15px;
+    }
+
+    .page-title {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .content-box {
+        padding: 20px;
+    }
+}

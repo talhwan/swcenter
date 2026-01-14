@@ -144,9 +144,6 @@
         _data.type = "GET";
         _data.param = {};
         _data.success = function(obj_data, obj_status, obj_xhr){
-            /*
-            alert(JSON.stringify(obj_data));
-            */
             let tempList = obj_data;
             for(let each of tempList){
                 let tempTarget = each["target"];

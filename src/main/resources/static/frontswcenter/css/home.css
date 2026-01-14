@@ -1,0 +1,187 @@
+body {
+    margin: 0;
+    background: linear-gradient(#FFFFFF 0%, #F8F9FA 100%);
+}
+
+/* --- carousel --- */
+.carousel_wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+}
+
+.carousel_img {
+    width: 100%;
+}
+
+.prev_btn,
+.next_btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    cursor: pointer;
+    opacity: 0.85;
+    z-index: 2;
+}
+
+.prev_btn {
+    left: 60px;
+}
+
+.next_btn {
+    right: 60px;
+}
+
+.dots {
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 16px;
+    z-index: 2;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ECE6DE;
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #064A30;
+}
+
+/* --- menu --- */
+.menu-wrapper {
+    padding: 60px;
+}
+
+.menu-list {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 54px;
+    justify-content: center;
+}
+
+.menu-card {
+    flex: 1 1 0;
+    background: #FFF;
+    border-radius: 10px;
+    padding: 24px 24px 12px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.menu-card-title {
+    margin-top: 0;
+}
+
+.menu-card-icon {
+    width: 120px;
+}
+
+.menu-card-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #002870;
+}
+
+/* ===== 반응형 (태블릿) ===== */
+@media (max-width: 1024px) {
+    .prev_btn {
+        left: 30px;
+    }
+
+    .next_btn {
+        right: 30px;
+    }
+
+    .menu-wrapper {
+        padding: 40px 30px;
+    }
+
+    .menu-list {
+        gap: 30px;
+    }
+
+    .menu-card {
+        padding: 20px 18px 10px;
+    }
+
+    .menu-card-icon {
+        width: 100px;
+    }
+
+    .menu-card-title {
+        font-size: 18px;
+    }
+}
+
+/* ===== 반응형 (모바일) ===== */
+@media (max-width: 768px) {
+
+    .prev_btn,
+    .next_btn {
+        width: 24px;
+    }
+
+    .prev_btn {
+        left: 15px;
+    }
+
+    .next_btn {
+        right: 15px;
+    }
+
+    .dots {
+        gap: 10px;
+        bottom: 8px;
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+    }
+
+    .menu-wrapper {
+        padding: 30px 15px;
+    }
+
+    /* 반응형 (모바일) 에서는 2 * 2 형태의 grid로 menu-card를 보여줌 */
+    .menu-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin: 0 auto;
+    }
+
+    .menu-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        text-align: center;
+        padding: 16px 12px;
+    }
+
+    .menu-card-icon {
+        width: 60px;
+        flex-shrink: 0;
+    }
+
+    .menu-card-title {
+        font-size: 16px;
+        margin: 0;
+    }
+}

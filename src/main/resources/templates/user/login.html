@@ -1,94 +1,43 @@
 <!DOCTYPE html>
-<html lang="ko">
-<th:block th:replace="~{includes/user/head}" />
-<style>
-    .claria-logo {
-        width: 100px;
-        height: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-    }
-    .font-logo {
-        font-size: 28px;
-        font-weight: 900;
-    }
-    .btn_login {
-        background-color: #2D35F8;
-    }
-    .btn_login:disabled {
-        background-color: #9ca3af; /* 회색 */
-        cursor: not-allowed;       /* 금지 커서 */
-        color: white;              /* 글자색 */
-    }
-    .btn_login:hover {
-        opacity : 0.75;
-    }
-</style>
-<body class="flex items-center min-h-screen">
-<div class="shadow-2xl items-center w-full max-w-md min-h-screen mx-auto">
-    <!-- Logo Section -->
-    <div class="text-center" style="padding-top: calc(50vh - 284px);">
-        <div class="claria-logo">
-            <img src="https://staticfile-three.vercel.app/frontrewardquiz/img/logo.png"/>
-        </div>
-        <div class="font-logo text-gray-900 tracking-wide">CLAIRA</div>
-    </div>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <link rel="icon" href="/common/img/img_transparent.png" />
+</head>
+<body>
 
-    <div class="space-y-6 mx-4">
-        <!-- 이메일 -->
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">전화번호</label>
-            <input type="text" id="create_user_phone" placeholder="전화번호 입력 (ex. 010-0000-0000)" class="w-full px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">비밀번호</label>
-            <input type="password" id="create_user_password" placeholder="비밀번호 입력" class="w-full px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-        </div>
-    </div>
-    <!-- Bottom Navigation -->
-    <div class="max-w-md mx-auto absolute bottom-0 left-0 right-0 px-4 pb-8">
-        <div class="flex justify-end pb-6" style="margin: 0;">
-            <a class="text-xs text-blue-400 mt-1" href="/user/signup">회원가입 하러 가기</a>
-        </div>
-        <button class="w-full py-4 text-white btn_login font-semibold rounded-lg
-        disabled:cursor-not-allowed
-        hover:bg-blue-700 transition-all duration-300" onclick="nlogin_user()">
-            로그인
-        </button>
-    </div>
+login
+<div>
+    username : <input type="text" id="input_user_username" name="username" class="input_create"/> <br/>
+    password : <input type="password" id="input_user_password" name="password" class="input_create"/> <br/>
+    <button onclick="loginUser()">로그인</button>
 </div>
-<th:block th:replace="~{includes/user/bottom}" />
-<script>
-    let tempCode = "";
-    function nlogin_user(){
-        let phone = $("#create_user_phone").val();
-        let regex = /^01[0-9]-?\d{3,4}-?\d{4}$/;
-        if(!regex.test(phone)){
-            alert("정상적인 전화번호가 아닙니다. 다시 입력해주세요.");
-            return false;
-        }
-        phone = phone.replaceAll("-", "");
 
+<script>
+    function loginUser(){
         let _data = {};
-        _data["username"] = "user_" + phone;
-        _data["password"] = $("#create_user_password").val();;
+        let input_create = $(".input_create");
+        for(let each of input_create){
+            let tempName = $(each).attr("name");
+            _data[tempName] = $(each).val();
+        }
         $.ajax({
             url: "/api/login",
             method: "POST",
             contentType : 'application/json; charset=utf-8',
             data: JSON.stringify(_data),
             success: (data, status, xhr)=>{
+                //alert(JSON.stringify(data));
+                //alert(JSON.stringify(xhr));
                 let refreshToken = xhr.getResponseHeader("RefreshToken");
-                if(refreshToken != null && refreshToken.length < 20){
-                    refreshToken = null;
-                }
+                //alert(refreshToken);
                 if(refreshToken === null || refreshToken === "" || Number(refreshToken) <= 0){
                     alert("로그인 실패");
                 } else {
+                    //alert("로그인 성공");
                     localStorage.setItem("refreshToken", refreshToken);
-                    flutter_setLocalStorage("refreshToken", refreshToken);
                     getAccessToken();
                 }
             },
@@ -110,7 +59,7 @@
                 let accessToken = xhr.getResponseHeader("Authorization");
                 localStorage.setItem("accessToken", accessToken);
                 alert("로그인 성공");
-                location.replace('/home');
+                location.replace('/admin');
             },
             error: (data, status, xhr)=>{
                 alert(JSON.stringify(data));
@@ -118,6 +67,5 @@
         });
     }
 </script>
-
 </body>
 </html>

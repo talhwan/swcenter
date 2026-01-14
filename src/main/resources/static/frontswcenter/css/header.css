@@ -1,0 +1,316 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  width: 100%;
+  display: block;
+  color: black;
+  font-family: "Pretendard", sans-serif;
+}
+
+/* topbar */
+.topbar {
+  width: 100%;
+  background-color: #09316b;
+  padding: 8px 0;
+}
+
+.topbar__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.topbar__nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 50px;
+}
+
+.topbar__nav .divider {
+  display: none;
+}
+
+.header__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 0;
+}
+
+.header__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__logo-link {
+    display: contents;
+}
+
+.header__logo {
+  height: 42px;
+}
+
+.header__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: black;
+  line-height: 1.4;
+}
+
+.header__nav {
+  position: relative;
+}
+
+/* main-menu */
+.main-menu {
+  display: flex;
+  list-style: none;
+  gap: 95px;
+  padding-right: 90px;
+  margin: 0;
+}
+
+.main-menu a {
+  color: black;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 500;
+  padding: 12px 0;
+  position: relative;
+  display: block;
+}
+
+/* ----- 메뉴 밑줄 관련 코드 ----- */
+.main-menu .main-link {
+  border-bottom: 2px solid transparent;
+  padding-bottom: 10px;
+}
+
+.main-menu li:hover .main-link {
+  color: #09316b;
+  border-bottom: 2px solid #09316b;
+}
+
+.main-menu li.active .main-link {
+  color: #09316b;
+  border-bottom: 2px solid #09316b;
+}
+
+.main-menu li.active a {
+  color: #09316b;
+  border-bottom: 2px solid #09316b;
+}
+
+/* -------------------------- */
+
+.main-menu li a {
+  padding: 12px 0;
+  display: block;
+}
+
+.menu-column a {
+  padding: 12px 0;
+  color: black;
+  text-decoration: none;
+  font-weight: 400;
+  line-height: 2.0;
+}
+
+/* dropdown */
+.mega-dropdown {
+  visibility: hidden;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 120px;
+  background: white;
+  padding: 30px 20px 40px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-menu li {
+  position: relative;
+}
+
+/* hover 관련 */
+.header__nav:hover .mega-dropdown {
+  display: flex;
+}
+
+.menu-column {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.menu-column h4 {
+  display: none;
+}
+
+.mega-dropdown .menu-column a {
+  padding: 6px 0;
+  color: black;
+  text-decoration: none;
+  font-weight: 400;
+  line-height: 2.0;
+  white-space: nowrap;
+}
+
+/* 메뉴 hover 관련 */
+.main-menu li:hover .mega-dropdown {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mega-dropdown .menu-column a:hover {
+  color: #09316b;
+  font-weight: 500;
+}
+
+/* 햄버거 메뉴 버튼 */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background: #09316b;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* ===== 반응형 (태블릿) ===== */
+@media (max-width: 1024px) {
+  .header__inner {
+    padding: 20px;
+  }
+
+  .main-menu {
+    gap: 40px;
+    padding-right: 20px;
+  }
+
+  .header__title {
+    font-size: 16px;
+  }
+
+  .topbar__nav a {
+    margin-left: 20px;
+    font-size: 12px;
+  }
+}
+
+/* ===== 반응형 (모바일) ===== */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .header__inner {
+    padding: 15px 20px;
+    flex-wrap: wrap;
+  }
+
+  .header__left {
+    flex: 1;
+  }
+
+  .header__logo {
+    height: 32px;
+  }
+
+  .header__title {
+    font-size: 14px;
+  }
+
+  .header__nav {
+    width: 100%;
+    order: 3;
+    display: none;
+  }
+
+  .header__nav.active {
+    display: block;
+  }
+
+  .main-menu {
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    margin-top: 15px;
+  }
+
+  .main-menu li {
+    border-bottom: 1px solid #eee;
+  }
+
+  .main-menu a {
+    padding: 15px 0;
+  }
+
+  .main-menu .main-link {
+    border-bottom: none;
+    padding-bottom: 15px;
+  }
+
+  .main-menu li:hover .main-link {
+    border-bottom: none;
+  }
+
+  .mega-dropdown {
+    position: static;
+    transform: none;
+    visibility: visible;
+    padding: 0 0 10px 20px;
+    box-shadow: none;
+    display: none;
+  }
+
+  .main-menu li:hover .mega-dropdown,
+  .main-menu li.open .mega-dropdown {
+    display: flex;
+  }
+
+  .menu-column {
+    text-align: left;
+  }
+
+  .mega-dropdown .menu-column a {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .topbar__inner {
+    justify-content: center;
+  }
+
+  .topbar__nav a {
+    margin: 0 10px;
+    font-size: 11px;
+  }
+
+  .topbar__nav .divider {
+    display: inline;
+    color: white;
+    margin: 0 5px;
+  }
+}
