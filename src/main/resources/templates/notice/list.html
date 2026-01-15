@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<th:block th:replace="~{includes/user/head}" />
+<link rel="stylesheet" href="/frontswcenter/css/aside.css">
+<body>
+
+<script id="list_info_notice" type="text/x-handlebars-template">
+    {{#resultData_notice}}
+    <tr class="gradeA">
+        <td><font class="font_notice_order"></font></td>
+        <td class="cursor_pointer" onclick="location.href='/notice/detail/{{id}}';">{{title}}</td>
+        <td>{{createdAt}}
+            <input type="hidden" class="input_cursor_notice_id" value="{{id}}"/>
+        </td>
+    </tr>
+    {{/resultData_notice}}
+</script>
+<script type="text/javascript">
+    var list_info_notice = $("#list_info_notice").html();
+    var list_info_notice_template = Handlebars.compile(list_info_notice);
+</script>
+
+<th:block th:replace="~{includes/user/header}" />
+
+<div class="page-layout">
+    <th:block th:replace="~{includes/user/aside}" />
+    <script> listener_aside_nav_active("news", 1); </script>
+
+
+    <main class="content-area">
+        <h1 class="page-title">공지사항</h1>
+
+        <div class="content-box">
+            <table class="table table-bordered bg-white" id="dataTable">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>제목</th>
+                    <th>입력일시</th>
+                </tr>
+                </thead>
+                <tbody id="tbody_notice_list">
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+</div>
+
+<th:block th:replace="~{includes/user/footer}" />
+<th:block th:replace="~{includes/user/bottom}" />
+
+<script>
+    $(function(){
+        console.log( "ready!" );
+        search_notice();
+    });
+    function listener_notice_keyword_changed(){
+        $("#input_notice_keyword_changed").val("1");
+        $("#tbody_notice_list").html("");
+        search_notice();
+    }
+    function search_notice() {
+        let _data = new Map();
+        _data.url = "/api/notice/scrollList";
+        _data.type = "GET";
+        _data.param = {
+            perpage: 10
+            , orderby: "id"
+            , orderway: "DESC"
+            , cursor: listenerGetCursor("notice")
+            , deleted: false
+        };
+        _data.success = function (obj_data, obj_status, obj_xhr) {
+            /*let input_notice_keyword_changed = $("#input_notice_keyword_changed").val();
+            if(input_notice_keyword_changed === "1"){
+                $("#input_notice_keyword_changed").val("");
+            }*/
+            let tempList = obj_data;
+            for (let each of tempList) {
+                let tList = [];
+                tList.push(each);
+                $("#tbody_notice_list").append(list_info_notice_template({"resultData_notice": tList}));
+            }
+            listenerAfterScrollList("notice");
+        }
+        _data.error = function (obj_data, obj_status, obj_xhr) {
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+</script>
+</body>
+
+</html>

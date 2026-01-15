@@ -1,35 +1,45 @@
-<!-- Bottom Navigation -->
-<div style="height: 49px;margin-bottom: env(safe-area-inset-bottom);"></div>
-<div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200" style="z-index: 99;padding-bottom: env(safe-area-inset-bottom);">
-    <div class="flex items-center justify-around py-2">
-        <div class="div_bottom_navi div_bottom_navi_0 flex flex-col items-center space-y-1 text-gray-500" onclick="location.href = '/home'">
-            <i class="nav-icon fas fa-home"></i>
-            <span class="text-xs">Home</span>
+<!-- footer -->
+<footer class="footer">
+    <div class="footer-top">
+        <div class="footer-left">
+            <img src="/frontswcenter/img/footer_logo.png" alt="한동대학교 로고" class="footer-logo" />
+            <p>
+                37554 경북 포항시 북구 흥해읍 한동로 558<br>
+                한동대학교 뉴턴홀 218호 소프트웨어중심대학사업단
+            </p>
         </div>
-        <div class="div_bottom_navi div_bottom_navi_1 flex flex-col items-center space-y-1 text-gray-500" onclick="location.href = '/quiz/list'">
-            <i class="nav-icon active fas fa-chart-line"></i>
-            <span class="text-xs">Predictions</span>
-        </div>
-        <div class="div_bottom_navi div_bottom_navi_2 flex flex-col items-center space-y-1 text-gray-500" onclick="location.href = '/gift/panel'">
-            <i class="nav-icon fas fa-shopping-bag"></i>
-            <span class="text-xs">Shop</span>
-        </div>
-        <div class="div_bottom_navi div_bottom_navi_3 flex flex-col items-center space-y-1 text-gray-500" onclick="listener_href('/user/setting', 'true')">
-            <i class="nav-icon fas fa-cog"></i>
-            <span class="text-xs">Settings</span>
+
+        <div class="footer-right">
+            <div class="contact">
+                <h4>Contact Us</h4>
+                <p>
+                    <span class="label">Phone</span>
+                    <span class="bar">|</span>
+                    <span class="value">054-260-1478</span>
+                </p>
+                <p>
+                    <span class="label">Fax</span>
+                    <span class="bar">|</span>
+                    <span class="value">054-260-1976</span>
+                </p>
+                <p>
+                    <span class="label">Email</span>
+                    <span class="bar">|</span>
+                    <span class="value">csee@handong.edu</span>
+                </p>
+            </div>
+
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="footer-icons">
+                    <a href="https://www.facebook.com/hguswplus/?locale=ko_KR"><img src="/frontswcenter/img/facebook_icon.png" alt="facebook"></a>
+                    <a href="https://www.youtube.com/@sw371"><img src="/frontswcenter/img/youtube_icon.png" alt="youtube"></a>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<script>
-    // 모든 .my-btn 요소에 클릭 이벤트 등록
-    /*$('.div_bottom_navi').click(function() {
-        let index = $('.div_bottom_navi').index(this); // 클릭된 버튼의 인덱스
-        listener_bottom_navi(`${index}`);
-    });*/
-    function listener_bottom_navi(obj_order){
-        $(".div_bottom_navi").removeClass("text-blue-500");
-        $(".div_bottom_navi").removeClass("text-gray-500");
-        $(".div_bottom_navi").addClass("text-gray-500");
-        $(".div_bottom_navi_" + obj_order).addClass("text-blue-500");
-    }
-</script>
+
+    <div class="footer-bottom">
+        Copyright © Handong Global University. All rights reserved.
+    </div>
+</footer>

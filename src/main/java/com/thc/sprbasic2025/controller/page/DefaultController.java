@@ -18,17 +18,10 @@ import java.util.Map;
 @Controller
 public class DefaultController {
 
-    //final MailBox mailBox;
-
-    @RequestMapping({"/index", "", "/"}) // @RequestMapping 의 주소값은 스트링 한개도 가능, 스트링 배열도 가능!
-    public String index(){
-        return "index";
-    }
-
-    @RequestMapping("/test")
-    public String test(){
-        //mailBox.phone("01094926643", "112233");
-        return "test";
+    @RequestMapping({"", "/"}) // @RequestMapping 의 주소값은 스트링 한개도 가능, 스트링 배열도 가능!
+    public String empty(){
+        return "redirect:/index";
+        //return "index";
     }
 
     @RequestMapping("/{page}")

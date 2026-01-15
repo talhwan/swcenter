@@ -1,46 +1,22 @@
 package com.thc.sprbasic2025.dto;
 
-import com.thc.sprbasic2025.domain.Permission;
+import com.thc.sprbasic2025.domain.Board;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
-public class PermissionDto {
-
-    public static String[][] targets = {
-            {"permission","권한설정"}
-            , {"user","사용자"}
-            , {"notice", "공지사항"}
-            , {"faq", "FAQ"}
-            , {"popup", "팝업"}
-
-            , {"board", "일반게시판"}
-    };
-
-    @NoArgsConstructor @AllArgsConstructor @SuperBuilder @Getter @Setter
-    public static class ExistReqDto {
-        private Long userId;
-        private String target;
-        private Integer func;
-    }
-
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class PermittedReqDto {
-        Long userId;
-        String target;
-        Integer func;
-    }
+public class BoardDto {
 
     /**/
 
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class CreateReqDto {
+        Long userId;
         String title;
         String content;
 
-        public Permission toEntity(){
-            return Permission.of(getTitle(), getContent());
+        public Board toEntity(){
+            return Board.of(userId, title, content);
         }
     }
 
@@ -52,11 +28,14 @@ public class PermissionDto {
 
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class DetailResDto extends DefaultDto.DetailResDto{
+        Long userId;
         String title;
         String content;
+        Integer countread;
 
-        String[][] targets; // 타겟 이름 가져가기!
-        List<PermissiondetailDto.DetailResDto> details; // 이 권한이 가진 모든 디테일 가져가기!
+        String userUsername;
+        String userNick;
+        String userImg;
     }
 
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor

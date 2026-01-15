@@ -1,0 +1,16 @@
+<aside class="aside-nav">
+    <ul>
+        <li><a href="/notice/list" class="a_aside_nav a_aside_nav_news a_aside_nav_news_1">공지사항</a></li>
+        <li><a href="/newsletter/intro" class="a_aside_nav a_aside_nav_news a_aside_nav_news_2">뉴스레터</a></li>
+        <li><a href="/activity/list" class="a_aside_nav a_aside_nav_news a_aside_nav_news_3">대외활동</a></li>
+
+        <li><a href="/board/list" class="a_aside_nav a_aside_nav_board a_aside_nav_board_1">일반 게시판</a></li>
+    </ul>
+</aside>
+<script>
+    function listener_aside_nav_active(obj_cate, obj_page){
+        $(".a_aside_nav").css("display", "none");
+        $(".a_aside_nav_"+obj_cate).css("display", "");
+        $(".a_aside_nav_"+obj_cate+"_"+obj_page).addClass("active");
+    }
+</script>
