@@ -3,6 +3,22 @@
         const nav = document.querySelector('.header__nav');
         nav.classList.toggle('active');
     }
+
+    function logout_user() {
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("accessToken");
+        location.href = "/index";
+    }
+
+    $(function(){
+        if (listener_is_login()) {
+            $("#topbar_login_link").hide();
+            $("#topbar_logout_link").show();
+        } else {
+            $("#topbar_login_link").show();
+            $("#topbar_logout_link").hide();
+        }
+    });
 </script>
 
 <!-- CUSTOM JS!!! -->

@@ -10,13 +10,37 @@
     <th:block th:replace="~{includes/user/aside}" />
     <script> listener_aside_nav_active("news", 1); </script>
 
-    <main class="content-area">
+    <main class="content-area detail-page">
         <h1 class="page-title">공지사항</h1>
 
-        <div class="content-box">
-            <div class="font_notice_title">-</div>
-            <div class="font_notice_createdAt">-</div>
-            <div class="font_notice_content">-</div>
+        <div class="content-box detail-card">
+            <div class="detail-title font_notice_title">-</div>
+            <div class="detail-meta">
+                <span class="font_notice_createdAt">-</span>
+                <span class="detail-divider"></span>
+                <span>조회수 <span id="notice_view_count">0</span></span>
+                <span class="detail-divider"></span>
+                <span>좋아요 <span id="notice_like_count">0</span></span>
+                <div class="detail-actions">
+                    <button class="ghost-button" id="notice_like_btn" onclick="toggle_notice_like(); return false;">좋아요</button>
+                    <button class="ghost-button" id="notice_report_btn" onclick="report_notice(); return false;">신고하기</button>
+                </div>
+            </div>
+            <div class="detail-body font_notice_content">-</div>
+
+            <div class="comment-box">
+                <div class="comment-header">
+                    <h3>댓글</h3>
+                </div>
+                <div id="notice_comment_list"></div>
+                <div class="comment-input-row">
+                    <textarea class="input_param" id="notice_comment_input" name="comment" placeholder="댓글을 입력해주세요."></textarea>
+                    <button class="primary-button" onclick="add_notice_comment(); return false;">댓글 등록</button>
+                </div>
+            </div>
+            <div class="detail-footer">
+                <button class="secondary-button" onclick="location.href='/notice/list'; return false;">목록으로</button>
+            </div>
         </div>
 
     </main>
@@ -27,6 +51,52 @@
 <th:block th:replace="~{includes/user/bottom}" />
 
 <script>
+    let currentNoticeId = null;
+
+    function render_notice_extras(data) {
+        let viewCount = parseInt(data.viewCount, 10);
+        let likeCount = parseInt(data.likeCount, 10);
+        $("#notice_view_count").text(Number.isFinite(viewCount) ? viewCount : 0);
+        $("#notice_like_count").text(Number.isFinite(likeCount) ? likeCount : 0);
+        $("#notice_like_btn").text("좋아요");
+        $("#notice_report_btn").prop("disabled", false).text("신고하기");
+    }
+    function toggle_notice_like() {
+        if (!currentNoticeId) { return; }
+        alert("좋아요 버튼 클릭");
+    }
+    function report_notice() {
+        if (!currentNoticeId) { return; }
+        alert("신고 처리 버튼 클릭");
+    }
+    function get_notice_comments(id) {
+        return [];
+    }
+    function render_notice_comments(id) {
+        let list = get_notice_comments(id);
+        let $list = $("#notice_comment_list");
+        $list.html("");
+        if (list.length === 0) {
+            $list.append("<div class=\"comment-empty\">등록된 댓글이 없습니다.</div>");
+            return;
+        }
+        for (let item of list) {
+            let $item = $("<div class=\"comment-item\"></div>");
+            $("<div class=\"comment-text\"></div>").text(item.text).appendTo($item);
+            $("<div class=\"comment-meta\"></div>").text(item.createdAt).appendTo($item);
+            $list.append($item);
+        }
+    }
+    function add_notice_comment() {
+        if (!currentNoticeId) { return; }
+        let text = $("#notice_comment_input").val().trim();
+        if (!text) {
+            alert("댓글 내용을 입력해주세요.");
+            return;
+        }
+        alert("댓글 등록 버튼 클릭");
+    }
+
     $(function(){
         console.log( "ready!" );
         detail_notice();
@@ -39,6 +109,9 @@
         _data.param = {'id': noticeId};
         _data.success = function (obj_data, obj_status, obj_xhr) {
             listenerAfterDetail(obj_data, "notice");
+            currentNoticeId = noticeId;
+            render_notice_extras(obj_data || {});
+            render_notice_comments(noticeId);
         }
         _data.error = function (obj_data, obj_status, obj_xhr) {
             alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
