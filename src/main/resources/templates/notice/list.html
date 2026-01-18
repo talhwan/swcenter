@@ -12,6 +12,8 @@
         <td>{{createdAt}}
             <input type="hidden" class="input_cursor_notice_id" value="{{id}}"/>
         </td>
+        <td class="text-center">{{viewCount}}</td>
+        <td class="text-center">{{likeCount}}</td>
     </tr>
     {{/resultData_notice}}
 </script>
@@ -27,16 +29,23 @@
     <script> listener_aside_nav_active("news", 1); </script>
 
 
-    <main class="content-area">
-        <h1 class="page-title">공지사항</h1>
+    <main class="content-area list-page">
+        <div class="content-header">
+            <h1 class="page-title">공지사항</h1>
+            <div class="content-actions">
+                <button class="primary-button" id="notice_write_button" onclick="location.href='/notice/create'; return false;">글쓰기</button>
+            </div>
+        </div>
 
         <div class="content-box">
-            <table class="table table-bordered bg-white" id="dataTable">
+            <table class="table list-table" id="dataTable">
                 <thead>
                 <tr>
-                    <th>#</th>
+                    <th>번호</th>
                     <th>제목</th>
-                    <th>입력일시</th>
+                    <th>작성일</th>
+                    <th>조회수</th>
+                    <th>좋아요</th>
                 </tr>
                 </thead>
                 <tbody id="tbody_notice_list">
@@ -55,6 +64,9 @@
     $(function(){
         console.log( "ready!" );
         search_notice();
+        if (!listener_is_login()) {
+            $("#notice_write_button").hide();
+        }
     });
     function listener_notice_keyword_changed(){
         $("#input_notice_keyword_changed").val("1");
@@ -79,6 +91,8 @@
             }*/
             let tempList = obj_data;
             for (let each of tempList) {
+                each.viewCount = each.viewCount || 0;
+                each.likeCount = each.likeCount || 0;
                 let tList = [];
                 tList.push(each);
                 $("#tbody_notice_list").append(list_info_notice_template({"resultData_notice": tList}));

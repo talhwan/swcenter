@@ -12,6 +12,8 @@
         <td>{{createdAt}}
             <input type="hidden" class="input_cursor_board_id" value="{{id}}"/>
         </td>
+        <td class="text-center">{{viewCount}}</td>
+        <td class="text-center">{{likeCount}}</td>
     </tr>
     {{/resultData_board}}
 </script>
@@ -27,16 +29,23 @@
     <script> listener_aside_nav_active("board", 1); </script>
 
 
-    <main class="content-area">
-        <h1 class="page-title">일반게시판</h1>
+    <main class="content-area list-page">
+        <div class="content-header">
+            <h1 class="page-title">일반게시판</h1>
+            <div class="content-actions">
+                <button class="primary-button" id="board_write_button" onclick="location.href='/board/create'; return false;">글쓰기</button>
+            </div>
+        </div>
 
         <div class="content-box">
-            <table class="table table-bordered bg-white" id="dataTable">
+            <table class="table list-table" id="dataTable">
                 <thead>
                 <tr>
-                    <th>#</th>
+                    <th>번호</th>
                     <th>제목</th>
-                    <th>입력일시</th>
+                    <th>작성일</th>
+                    <th>조회수</th>
+                    <th>좋아요</th>
                 </tr>
                 </thead>
                 <tbody id="tbody_board_list">
@@ -55,6 +64,9 @@
     $(function(){
         console.log( "ready!" );
         search_board();
+        if (!listener_is_login()) {
+            $("#board_write_button").hide();
+        }
     });
     function listener_board_keyword_changed(){
         $("#input_board_keyword_changed").val("1");
@@ -79,6 +91,8 @@
             }*/
             let tempList = obj_data;
             for (let each of tempList) {
+                each.viewCount = each.viewCount || 0;
+                each.likeCount = each.likeCount || 0;
                 let tList = [];
                 tList.push(each);
                 $("#tbody_board_list").append(list_info_board_template({"resultData_board": tList}));

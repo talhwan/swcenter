@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<th:block th:replace="~{includes/user/head}" />
+<link rel="stylesheet" href="/frontswcenter/css/aside.css">
+<body>
+
+<th:block th:replace="~{includes/user/header}" />
+
+<div class="page-layout">
+    <th:block th:replace="~{includes/user/aside}" />
+    <script> listener_aside_nav_active("board", 1); </script>
+
+    <main class="content-area">
+        <h1 class="page-title">일반게시판 작성</h1>
+
+        <div class="content-box">
+            <div class="form-grid">
+                <div class="form-field">
+                    <label for="create_board_title">제목</label>
+                    <input type="text" class="input_param input_required" id="create_board_title" name="title" placeholder="제목을 입력해주세요." />
+                </div>
+                <div class="form-field">
+                    <label for="create_board_content">내용</label>
+                    <textarea class="input_param" id="create_board_content" name="content" placeholder="내용을 입력해주세요."></textarea>
+                </div>
+                <div class="content-actions">
+                    <button class="primary-button" onclick="create_board(); return false;">등록하기</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<th:block th:replace="~{includes/user/footer}" />
+<th:block th:replace="~{includes/user/bottom}" />
+
+<script>
+    $(function(){
+        if (!listener_is_login()) {
+            alert("로그인이 필요합니다.");
+            location.replace("/user/login");
+        }
+    });
+    function create_board(){
+        let _param = listenerCreateParam();
+        let _data = {};
+        _data.url = "/api/board";
+        _data.type = "POST";
+        _data.param = _param;
+        _data.success = function(){
+            alert("등록 성공");
+            location.href = "/board/list";
+        }
+        _data.error = function(){
+            alert("정상적으로 이루어지지 않았습니다. 다시 시도해주세요.");
+        }
+        func_ajax(_data);
+    }
+</script>
+</body>
+</html>

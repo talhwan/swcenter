@@ -23,6 +23,282 @@
     border: 1px solid #e0e6ef;
 }
 
+.content-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+}
+
+.list-page .content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.list-page .content-actions {
+    margin-bottom: 0;
+}
+
+.list-page .primary-button {
+    padding: 9px 22px;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(9, 49, 107, 0.2);
+}
+
+.list-page .content-box {
+    background: #fff;
+    border: 1px solid #e1e7f0;
+    border-radius: 10px;
+    padding: 0;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+}
+
+.list-page .list-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.list-page .list-table thead th {
+    padding: 14px 18px;
+    text-align: left;
+    background: #f7f9fc;
+    color: #1f2d44;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 1px solid #e1e7f0;
+}
+
+.list-page .list-table tbody td {
+    padding: 14px 18px;
+    font-size: 14px;
+    color: #2c3e57;
+    border-bottom: 1px solid #edf1f7;
+}
+
+.list-page .list-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.list-page .list-table tbody tr:hover {
+    background: #f6f9ff;
+}
+
+.list-page .list-table .cursor_pointer {
+    color: #09316b;
+    font-weight: 600;
+}
+
+.primary-button {
+    background: #09316b;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.primary-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e2f4a;
+}
+
+.form-field input,
+.form-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #d7dde6;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 14px;
+    background: #fff;
+}
+
+.form-field textarea {
+    min-height: 180px;
+    resize: vertical;
+}
+
+.content-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+}
+
+.detail-page .detail-card {
+    background: #fff;
+    border: 1px solid #e1e7f0;
+    border-radius: 12px;
+    padding: 28px 32px;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+}
+
+.detail-page .detail-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1b2e4b;
+    margin-bottom: 12px;
+}
+
+.detail-page .detail-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    color: #6b7a90;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.detail-page .detail-divider {
+    width: 1px;
+    height: 14px;
+    background: #d7dde6;
+}
+
+.detail-page .detail-body {
+    background: #f9fafc;
+    border: 1px solid #e5eaf2;
+    border-radius: 10px;
+    padding: 20px 22px;
+    min-height: 140px;
+    line-height: 1.6;
+    color: #2c3e57;
+}
+
+.action-row {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0 4px;
+}
+
+.secondary-button {
+    background: #fff;
+    color: #09316b;
+    border: 1px solid #d7dde6;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.secondary-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.comment-box {
+    margin-top: 16px;
+    border-top: 1px solid #e0e6ef;
+    padding-top: 16px;
+}
+
+.detail-page .comment-box {
+    margin-top: 24px;
+    border-top: none;
+    padding-top: 0;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.comment-header h3 {
+    font-size: 18px;
+    margin: 0;
+    color: #1b2e4b;
+}
+
+.comment-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #6b7a90;
+}
+
+.detail-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.comment-metric {
+    font-weight: 600;
+    color: #1b2e4b;
+}
+
+.ghost-button {
+    background: #fff;
+    border: 1px solid #d7dde6;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #09316b;
+    cursor: pointer;
+}
+
+.comment-input-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 12px;
+}
+
+.detail-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 18px;
+}
+
+.comment-input-row textarea {
+    flex: 1;
+    min-height: 80px;
+}
+
+.comment-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e6ef;
+}
+
+.comment-meta {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+}
+
+.comment-empty {
+    color: #888;
+    font-size: 14px;
+    padding: 8px 0;
+}
+
 .aside-nav {
     width: 150px;
     background-color: #fff;
@@ -122,5 +398,63 @@
 
     .content-box {
         padding: 20px;
+    }
+
+    .list-page .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .list-page .primary-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .list-page .content-box {
+        padding: 0;
+        overflow-x: auto;
+    }
+
+    .list-page .list-table thead th,
+    .list-page .list-table tbody td {
+        padding: 12px 14px;
+        white-space: nowrap;
+    }
+
+    .detail-page .detail-card {
+        padding: 22px;
+    }
+
+    .detail-page .detail-meta {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .detail-actions {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .comment-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .comment-input-row {
+        flex-direction: column;
+    }
+
+    .comment-input-row .primary-button {
+        width: 100%;
+    }
+
+    .detail-footer {
+        justify-content: stretch;
+    }
+
+    .detail-footer .secondary-button {
+        width: 100%;
     }
 }

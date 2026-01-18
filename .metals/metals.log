@@ -1,0 +1,231 @@
+2026.01.18 12:32:30 INFO  Started: Metals version 1.6.4 in folders '/Users/sw/Documents/workspace/swcenter' for client Visual Studio Code 1.108.1.
+2026.01.18 12:32:31 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.01.18 12:32:31 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:32:32 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:32:32 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:32:32 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:32:33 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+Jan 18, 2026 12:32:33 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 7
+Jan 18, 2026 12:32:33 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3
+2026.01.18 12:32:32 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:32:33 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:32:33 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+Jan 18, 2026 12:32:34 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 12
+2026.01.18 12:32:42 INFO  running '/Users/sw/Documents/workspace/swcenter/gradlew --stacktrace --console=plain --init-script /var/folders/cl/__9tzszj26g0n4m7c3hfbhy80000gn/T/metals6216491002010549471/init-script.gradle bloopInstall'
+2026.01.18 12:32:42 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:32:42 ERROR Running process '/Users/sw/Documents/workspace/swcenter/gradlew --stacktrace --console=plain --init-script /var/folders/cl/__9tzszj26g0n4m7c3hfbhy80000gn/T/metals6216491002010549471/init-script.gradle bloopInstall' failed
+java.io.IOException: Cannot run program "/Users/sw/Documents/workspace/swcenter/gradlew" (in directory "/Users/sw/Documents/workspace/swcenter"): error=13, Permission denied
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1143)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1073)
+	at scala.meta.internal.process.SystemProcess$.run(SystemProcess.scala:48)
+	at scala.meta.internal.builds.ShellRunner.run(ShellRunner.scala:102)
+	at scala.meta.internal.builds.BloopInstall.runArgumentsUnconditionally(BloopInstall.scala:74)
+	at scala.meta.internal.builds.BloopInstall.$anonfun$run$1(BloopInstall.scala:49)
+	at scala.meta.internal.builds.BloopInstallProvider.bloopInstall(BloopInstallProvider.scala:22)
+	at scala.meta.internal.builds.BloopInstallProvider.bloopInstall$(BloopInstallProvider.scala:17)
+	at scala.meta.internal.builds.GradleBuildTool.bloopInstall(GradleBuildTool.scala:20)
+	at scala.meta.internal.builds.BloopInstall.run(BloopInstall.scala:46)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.bloopInstallAndConnect(ConnectionProvider.scala:696)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.$anonfun$pollAndConnect$1(ConnectionProvider.scala:396)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.$anonfun$pollAndConnect$1$adapted(ConnectionProvider.scala:374)
+	at scala.Option.foreach(Option.scala:437)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.pollAndConnect(ConnectionProvider.scala:374)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.connect(ConnectionProvider.scala:332)
+	at scala.meta.internal.metals.ConnectionProvider.runInstall$1(ConnectionProvider.scala:165)
+	at scala.meta.internal.metals.ConnectionProvider.$anonfun$slowConnectToBuildServer$2(ConnectionProvider.scala:168)
+	at scala.meta.internal.builds.BloopInstall.$anonfun$runIfApproved$3(BloopInstall.scala:153)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:503)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(Thread.java:840)
+Caused by: java.io.IOException: error=13, Permission denied
+	at java.lang.ProcessImpl.forkAndExec(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:314)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:244)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1110)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1073)
+	at scala.meta.internal.process.SystemProcess$.run(SystemProcess.scala:48)
+	at scala.meta.internal.builds.ShellRunner.run(ShellRunner.scala:102)
+	at scala.meta.internal.builds.BloopInstall.runArgumentsUnconditionally(BloopInstall.scala:74)
+	at scala.meta.internal.builds.BloopInstall.$anonfun$run$1(BloopInstall.scala:49)
+	at scala.meta.internal.builds.BloopInstallProvider.bloopInstall(BloopInstallProvider.scala:22)
+	at scala.meta.internal.builds.BloopInstallProvider.bloopInstall$(BloopInstallProvider.scala:17)
+	at scala.meta.internal.builds.GradleBuildTool.bloopInstall(GradleBuildTool.scala:20)
+	at scala.meta.internal.builds.BloopInstall.run(BloopInstall.scala:46)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.bloopInstallAndConnect(ConnectionProvider.scala:696)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.$anonfun$pollAndConnect$1(ConnectionProvider.scala:396)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.$anonfun$pollAndConnect$1$adapted(ConnectionProvider.scala:374)
+	at scala.Option.foreach(Option.scala:437)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.pollAndConnect(ConnectionProvider.scala:374)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.connect(ConnectionProvider.scala:332)
+	at scala.meta.internal.metals.ConnectionProvider.runInstall$1(ConnectionProvider.scala:165)
+	at scala.meta.internal.metals.ConnectionProvider.$anonfun$slowConnectToBuildServer$2(ConnectionProvider.scala:168)
+	at scala.meta.internal.builds.BloopInstall.$anonfun$runIfApproved$3(BloopInstall.scala:153)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:503)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(Thread.java:840)
+
+2026.01.18 12:32:42 INFO  time: ran 'gradle bloopInstall' in 54ms
+2026.01.18 12:32:42 ERROR Gradle command failed: /Users/sw/Documents/workspace/swcenter/gradlew --stacktrace --console=plain --init-script /var/folders/cl/__9tzszj26g0n4m7c3hfbhy80000gn/T/metals6216491002010549471/init-script.gradle bloopInstall
+2026.01.18 12:32:42 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java
+2026.01.18 12:32:42 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:32:44 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:32:44 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:32:45 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:32:54 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:32:54 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java
+2026.01.18 12:32:54 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:32:55 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:32:54 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:32:55 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:32:54 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:32:56 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:32:57 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:32:57 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/HttpClientSender.java
+2026.01.18 12:32:57 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/HttpClientSender.java. Using fallback presentation compiler.
+2026.01.18 12:32:58 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/HttpClientSender.java. Using fallback presentation compiler.
+2026.01.18 12:32:58 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/HttpClientSender.java. Using fallback presentation compiler.
+2026.01.18 12:32:57 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/HttpClientSender.java. Using fallback presentation compiler.
+2026.01.18 12:32:57 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/HttpClientSender.java. Using fallback presentation compiler.
+2026.01.18 12:32:59 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/HttpClientSender.java. Using fallback presentation compiler.
+2026.01.18 12:33:03 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/HttpClientSender.java. Using fallback presentation compiler.
+2026.01.18 12:33:03 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java
+2026.01.18 12:33:03 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:33:03 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:33:03 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:33:03 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:33:03 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:33:06 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:33:06 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/WebConnect.java
+2026.01.18 12:33:06 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/WebConnect.java. Using fallback presentation compiler.
+2026.01.18 12:33:06 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/WebConnect.java. Using fallback presentation compiler.
+2026.01.18 12:33:07 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/WebConnect.java. Using fallback presentation compiler.
+2026.01.18 12:33:06 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/WebConnect.java. Using fallback presentation compiler.
+2026.01.18 12:33:09 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/WebConnect.java. Using fallback presentation compiler.
+2026.01.18 12:33:09 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/HttpClientSender.java
+2026.01.18 12:33:09 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/HttpClientSender.java. Using fallback presentation compiler.
+2026.01.18 12:33:09 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/HttpClientSender.java. Using fallback presentation compiler.
+2026.01.18 12:33:09 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/HttpClientSender.java. Using fallback presentation compiler.
+2026.01.18 12:33:09 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/HttpClientSender.java. Using fallback presentation compiler.
+2026.01.18 12:33:10 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/HttpClientSender.java. Using fallback presentation compiler.
+2026.01.18 12:33:10 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java
+2026.01.18 12:33:10 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:33:10 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:33:10 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:33:10 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:33:12 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/util/GithubCommitsByToken.java. Using fallback presentation compiler.
+2026.01.18 12:33:12 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/repository/RefreshTokenRepository.java
+2026.01.18 12:33:12 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/repository/RefreshTokenRepository.java. Using fallback presentation compiler.
+2026.01.18 12:33:12 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/repository/RefreshTokenRepository.java. Using fallback presentation compiler.
+2026.01.18 12:33:12 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/repository/RefreshTokenRepository.java. Using fallback presentation compiler.
+2026.01.18 12:33:13 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/repository/UserRepository.java
+2026.01.18 12:33:12 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/repository/UserRepository.java. Using fallback presentation compiler.
+2026.01.18 12:33:13 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/repository/UserRepository.java. Using fallback presentation compiler.
+2026.01.18 12:33:13 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/repository/UserRepository.java. Using fallback presentation compiler.
+2026.01.18 12:33:13 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/repository/UserRepository.java. Using fallback presentation compiler.
+2026.01.18 12:33:13 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/repository/UserRepository.java. Using fallback presentation compiler.
+2026.01.18 12:33:13 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java
+2026.01.18 12:33:13 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:33:13 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:33:14 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:33:14 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:33:14 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:33:22 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:41:41 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:41:41 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:41:41 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:41:41 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:46:24 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/JwtAuthorizationFilter.java. Using fallback presentation compiler.
+2026.01.18 12:52:27 INFO  running '/Users/sw/Documents/workspace/swcenter/gradlew --stacktrace --console=plain --init-script /var/folders/cl/__9tzszj26g0n4m7c3hfbhy80000gn/T/metals5237834849773524659/init-script.gradle bloopInstall'
+2026.01.18 12:52:27 ERROR Running process '/Users/sw/Documents/workspace/swcenter/gradlew --stacktrace --console=plain --init-script /var/folders/cl/__9tzszj26g0n4m7c3hfbhy80000gn/T/metals5237834849773524659/init-script.gradle bloopInstall' failed
+java.io.IOException: Cannot run program "/Users/sw/Documents/workspace/swcenter/gradlew" (in directory "/Users/sw/Documents/workspace/swcenter"): error=13, Permission denied
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1143)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1073)
+	at scala.meta.internal.process.SystemProcess$.run(SystemProcess.scala:48)
+	at scala.meta.internal.builds.ShellRunner.run(ShellRunner.scala:102)
+	at scala.meta.internal.builds.BloopInstall.runArgumentsUnconditionally(BloopInstall.scala:74)
+	at scala.meta.internal.builds.BloopInstall.$anonfun$run$1(BloopInstall.scala:49)
+	at scala.meta.internal.builds.BloopInstallProvider.bloopInstall(BloopInstallProvider.scala:22)
+	at scala.meta.internal.builds.BloopInstallProvider.bloopInstall$(BloopInstallProvider.scala:17)
+	at scala.meta.internal.builds.GradleBuildTool.bloopInstall(GradleBuildTool.scala:20)
+	at scala.meta.internal.builds.BloopInstall.run(BloopInstall.scala:46)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.bloopInstallAndConnect(ConnectionProvider.scala:696)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.$anonfun$pollAndConnect$1(ConnectionProvider.scala:396)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.$anonfun$pollAndConnect$1$adapted(ConnectionProvider.scala:374)
+	at scala.Option.foreach(Option.scala:437)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.pollAndConnect(ConnectionProvider.scala:374)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.connect(ConnectionProvider.scala:332)
+	at scala.meta.internal.metals.ConnectionProvider.runInstall$1(ConnectionProvider.scala:165)
+	at scala.meta.internal.metals.ConnectionProvider.$anonfun$slowConnectToBuildServer$2(ConnectionProvider.scala:168)
+	at scala.meta.internal.builds.BloopInstall.$anonfun$runIfApproved$3(BloopInstall.scala:153)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:503)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(Thread.java:840)
+Caused by: java.io.IOException: error=13, Permission denied
+	at java.lang.ProcessImpl.forkAndExec(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:314)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:244)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1110)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1073)
+	at scala.meta.internal.process.SystemProcess$.run(SystemProcess.scala:48)
+	at scala.meta.internal.builds.ShellRunner.run(ShellRunner.scala:102)
+	at scala.meta.internal.builds.BloopInstall.runArgumentsUnconditionally(BloopInstall.scala:74)
+	at scala.meta.internal.builds.BloopInstall.$anonfun$run$1(BloopInstall.scala:49)
+	at scala.meta.internal.builds.BloopInstallProvider.bloopInstall(BloopInstallProvider.scala:22)
+	at scala.meta.internal.builds.BloopInstallProvider.bloopInstall$(BloopInstallProvider.scala:17)
+	at scala.meta.internal.builds.GradleBuildTool.bloopInstall(GradleBuildTool.scala:20)
+	at scala.meta.internal.builds.BloopInstall.run(BloopInstall.scala:46)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.bloopInstallAndConnect(ConnectionProvider.scala:696)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.$anonfun$pollAndConnect$1(ConnectionProvider.scala:396)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.$anonfun$pollAndConnect$1$adapted(ConnectionProvider.scala:374)
+	at scala.Option.foreach(Option.scala:437)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.pollAndConnect(ConnectionProvider.scala:374)
+	at scala.meta.internal.metals.ConnectionProvider$Connect$.connect(ConnectionProvider.scala:332)
+	at scala.meta.internal.metals.ConnectionProvider.runInstall$1(ConnectionProvider.scala:165)
+	at scala.meta.internal.metals.ConnectionProvider.$anonfun$slowConnectToBuildServer$2(ConnectionProvider.scala:168)
+	at scala.meta.internal.builds.BloopInstall.$anonfun$runIfApproved$3(BloopInstall.scala:153)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:503)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(Thread.java:840)
+
+2026.01.18 12:52:27 INFO  time: ran 'gradle bloopInstall' in 8ms
+2026.01.18 12:52:27 ERROR Gradle command failed: /Users/sw/Documents/workspace/swcenter/gradlew --stacktrace --console=plain --init-script /var/folders/cl/__9tzszj26g0n4m7c3hfbhy80000gn/T/metals5237834849773524659/init-script.gradle bloopInstall
+2026.01.18 17:40:41 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/config/SecurityConfig.java
+2026.01.18 17:40:41 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/config/SecurityConfig.java. Using fallback presentation compiler.
+2026.01.18 17:40:42 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/config/SecurityConfig.java. Using fallback presentation compiler.
+2026.01.18 17:40:43 INFO  time: code lens generation in 1.54s
+2026.01.18 17:40:44 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/config/SecurityConfig.java. Using fallback presentation compiler.
+2026.01.18 17:40:45 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/config/SecurityConfig.java. Using fallback presentation compiler.
+2026.01.18 17:40:49 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/config/SecurityConfig.java. Using fallback presentation compiler.
+2026.01.18 17:40:49 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/NewsController.java
+2026.01.18 17:40:49 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/NewsController.java. Using fallback presentation compiler.
+2026.01.18 17:40:50 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/NewsController.java. Using fallback presentation compiler.
+2026.01.18 17:40:49 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/NewsController.java. Using fallback presentation compiler.
+2026.01.18 17:40:51 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/IntroductionController.java
+2026.01.18 17:40:51 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/IntroductionController.java. Using fallback presentation compiler.
+2026.01.18 17:40:51 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/IntroductionController.java. Using fallback presentation compiler.
+2026.01.18 17:40:51 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/IntroductionController.java. Using fallback presentation compiler.
+2026.01.18 17:40:51 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/IntroductionController.java. Using fallback presentation compiler.
+2026.01.18 17:40:52 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/NewsController.java
+2026.01.18 17:40:52 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/NewsController.java. Using fallback presentation compiler.
+2026.01.18 17:40:51 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/NewsController.java. Using fallback presentation compiler.
+2026.01.18 17:40:52 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/NewsController.java. Using fallback presentation compiler.
+2026.01.18 17:40:53 INFO  time: code lens generation in 1.92s
+2026.01.18 17:40:53 INFO  time: code lens generation in 1.53s
+2026.01.18 17:40:53 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/NewsController.java. Using fallback presentation compiler.
+2026.01.18 17:40:54 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/ValueSpreadController.java
+2026.01.18 17:40:53 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/ValueSpreadController.java. Using fallback presentation compiler.
+2026.01.18 17:40:54 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/ValueSpreadController.java. Using fallback presentation compiler.
+2026.01.18 17:40:54 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/ValueSpreadController.java. Using fallback presentation compiler.
+2026.01.18 17:40:57 WARN  no build target for: /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/ExternalProperties.java
+2026.01.18 17:40:57 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/ExternalProperties.java. Using fallback presentation compiler.
+2026.01.18 17:40:57 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/ExternalProperties.java. Using fallback presentation compiler.
+2026.01.18 17:40:57 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/ExternalProperties.java. Using fallback presentation compiler.
+2026.01.18 17:40:57 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/security/ExternalProperties.java. Using fallback presentation compiler.
+2026.01.18 17:41:04 INFO  no build target found for /Users/sw/Documents/workspace/swcenter/src/main/java/com/thc/sprbasic2025/controller/page/ValueSpreadController.java. Using fallback presentation compiler.
