@@ -52,9 +52,12 @@ dependencies {
     //이메일 확인을 위함
     implementation 'com.sun.mail:jakarta.mail:2.0.1'
 
-    /*
     // SNS 로그인을 위함
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    // 구글 로그인을 위함
+    implementation 'com.google.api-client:google-api-client:2.0.0'
+    /*
+
 
 
 
@@ -65,10 +68,6 @@ dependencies {
     // https://mvnrepository.com/artifact/com.sun.mail/javax.mail
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
 
-    // SNS 로그인을 위함
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    // 구글 로그인을 위함
-    implementation 'com.google.api-client:google-api-client:2.0.0'
     // kg 본인인증 을 위함
     implementation group: 'org.apache.clerezza.ext', name: 'org.json.simple', version: '0.4'
 

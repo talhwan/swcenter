@@ -26,4 +26,7 @@ public class ExternalProperties {
 	@Value("${external.jwt.refreshTokenExpirationTime}")
 	private Integer refreshTokenExpirationTime;
 
+	@Value("${google.client-id}")
+	private String googleClientId;
+
 }

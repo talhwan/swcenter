@@ -1,43 +1,40 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- GIS SDK -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <meta charset="UTF-8">
+    <title>index</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <link rel="icon" href="/common/img/img_transparent.png" />
 </head>
 <body>
-<div id="g_id_onload"
-     data-client_id="868730276300-vmg16fubqhgv0g90gdn4t9g1quctjqiq.apps.googleusercontent.com"
-     data-callback="handleCredentialResponse">
+
+login
+<div>
+    username : <input type="text" id="input_user_username" name="username" class="input_create"/> <br/>
+    password : <input type="password" id="input_user_password" name="password" class="input_create"/> <br/>
+    <button onclick="loginUser()">로그인</button>
 </div>
 
-<div class="g_id_signin" data-type="standard"></div>
-
 <script>
-    function handleCredentialResponse(response) {
-        // response.credential = ID Token (JWT)
-        const idToken = response.credential;
-        console.log("ID Token:", idToken);
-
-        listener_google_login(idToken);
-    }
-
-    function listener_google_login(idToken){
+    function loginUser(){
+        let _data = {};
+        let input_create = $(".input_create");
+        for(let each of input_create){
+            let tempName = $(each).attr("name");
+            _data[tempName] = $(each).val();
+        }
         $.ajax({
-            url: "/api/user/google",
+            url: "/api/login",
             method: "POST",
             contentType : 'application/json; charset=utf-8',
-            data: idToken,
+            data: JSON.stringify(_data),
             success: (data, status, xhr)=>{
+                //alert(JSON.stringify(data));
+                //alert(JSON.stringify(xhr));
                 let refreshToken = xhr.getResponseHeader("RefreshToken");
-                alert(refreshToken);
+                //alert(refreshToken);
                 if(refreshToken === null || refreshToken === "" || Number(refreshToken) <= 0){
                     alert("로그인 실패");
-                } else if(refreshToken.includes("not_valid_email")){
-                    alert("한동대 학생 혹은 교직원만 가입이 가능합니다.");
                 } else {
                     //alert("로그인 성공");
                     localStorage.setItem("refreshToken", refreshToken);

@@ -1,5 +1,11 @@
 package com.thc.sprbasic2025.controller;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.gson.GsonFactory;
 import com.thc.sprbasic2025.dto.UserDto;
 import com.thc.sprbasic2025.dto.DefaultDto;
 import com.thc.sprbasic2025.security.ExternalProperties;
@@ -18,6 +24,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +44,12 @@ public class UserRestController {
         return principalDetails.getUser().getId();
     }
 
+    @PostMapping("/google")
+    public ResponseEntity<Void> googleLogin(@RequestBody String token) throws Exception {
+        String refreshToken = userService.google(token);
+        return ResponseEntity.status(HttpStatus.OK).header(externalProperties.getRefreshKey(), externalProperties.getTokenPrefix() + refreshToken).build();
+    }
+
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/nick")
     public ResponseEntity<Boolean> nick(@RequestBody UserDto.NickReqDto params, @AuthenticationPrincipal PrincipalDetails principalDetails){
@@ -47,7 +60,7 @@ public class UserRestController {
     @PreAuthorize("permitAll()")
     @PostMapping("/signup")
     public ResponseEntity<DefaultDto.CreateResDto> signup(@RequestBody UserDto.CreateReqDto params){
-        return ResponseEntity.ok(userService.signup(params, null));
+        return ResponseEntity.ok(userService.signup(params));
     }
 
     /**/
